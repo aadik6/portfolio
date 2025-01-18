@@ -1,0 +1,11 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap');
+
+*{
+  font-family: fira code;
+  background-color: rgba(1, 22, 39, 1);
+  ;
+  color: wheat;
+}
+
+

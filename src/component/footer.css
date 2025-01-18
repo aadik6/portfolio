@@ -1,0 +1,50 @@
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%; 
+    color: #c9d1d9; 
+    /* height: 40px; */
+    text-align: center;
+}
+
+
+.social{
+    display: flex;
+    justify-content: space-between;
+}
+
+.social ul {
+    list-style: none;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    padding: 0;
+    margin: 0;
+}
+.social li{
+    display: flex;
+    align-items: center;
+    margin: 0 3px 0;
+    cursor: pointer;
+    color: #607B96;
+}
+.social li:hover{
+    color: #fff;
+}
+
+.findme li {
+    margin: 0 10px 0; 
+    font-weight: bold;
+}
+.github{
+    margin: 0 20px 0;
+}
+.footer-icon{
+    color: #607B96;
+}
+.footer-icon:hover{
+    color: #fff;
+}
+
+
+
