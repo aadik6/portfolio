@@ -2,19 +2,20 @@ import React from 'react'
 import Home from './sections/home'
 import Header from './component/header'
 import Footer from './component/footer'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.css'
 
 function App() {
   return (
-    <>
-      <div className='parent-app'>
+    <Router>
+      
         <Header />
-        <div className='section'>
-          <Home />
-        </div>
+        <Routes>
+          <Route path='/' element={<Home/>}/>
+        </Routes>
+        
         <Footer />
-      </div>
-    </>
+    </Router>
   )
 }
 

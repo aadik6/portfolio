@@ -1,5 +1,6 @@
 import React from 'react'
 import "./header.css"
+import { NavLink } from 'react-router-dom'
 
 function Header() {
     return (
@@ -14,7 +15,9 @@ function Header() {
                     </div>
                     <div className="menu-right">
                         <li className='tw-mx-8 separator'></li>
-                        <li>_hello</li>
+                        <li>
+                            <NavLink to='/'>_hello</NavLink>
+                        </li>
                         <li className='tw-mx-8 separator'></li>
                         <li>_about-me</li>
                         <li className='tw-mx-8 separator'></li>
