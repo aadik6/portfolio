@@ -5,6 +5,7 @@
   }
   .rightCode {
     width: 100px;
+    /* z-index: 1  ; */
     /* position: relative; */
     /* background: linear-gradient(45deg, #4D5BCE, #43D9AD); */
 
@@ -17,7 +18,7 @@
     height: 50px;
     width: 50px;
     border-radius: 50%;
-    background-color: #43D9AD;
+    background-color: #43d9ac65;
   }
   .color2{
     position: absolute;
@@ -26,7 +27,7 @@
     height: 50px;
     width: 50px;
     border-radius: 50%;
-    background-color: #4D5BCE;
+    background-color: #4d5cce7a;
   }
 
   @media(max-width:768px){

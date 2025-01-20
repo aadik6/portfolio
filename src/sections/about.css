@@ -1,0 +1,31 @@
+.separator2 {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* padding: 0 px; */
+}
+
+.separator2::before {
+    content: '';
+    display: block;
+    width: 1.5px; 
+    height: calc(100vh - 100px); 
+    background-color:#1E2D3D; 
+    align-items: center;
+}
+
+.icons li{
+    cursor: pointer;
+}
+
+.about-hr{
+    position: absolute;
+    top: 5em;
+    left: 5rem;
+    width: calc(100vw - 65px);
+    border: none;
+    height: 1px;
+    margin-left: -15px;
+    background-color: #607B96;
+}
