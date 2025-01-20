@@ -4,7 +4,7 @@
     align-items: center;
   }
   .rightCode {
-    width: 300px;
+    width: 100px;
     /* position: relative; */
     /* background: linear-gradient(45deg, #4D5BCE, #43D9AD); */
 
@@ -27,5 +27,14 @@
     width: 50px;
     border-radius: 50%;
     background-color: #4D5BCE;
+  }
+
+  @media(max-width:768px){
+    .rightCode{
+      display: none;
+    }
+    .leftText{
+      margin-left: 10px;
+    }
   }
   

@@ -1,5 +1,5 @@
 .footer {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     width: 100%; 
     color: #c9d1d9; 
@@ -42,9 +42,15 @@
 .footer-icon{
     color: #607B96;
 }
-.footer-icon:hover{
+/* .footer-icon:hover{
     color: #fff;
-}
+} */
 
+
+@media(max-width:768px){
+    .footer{
+        display: none;
+    }
+}
 
 

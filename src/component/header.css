@@ -28,6 +28,9 @@
     display: flex;
 } 
 
+.mobile{
+    display: none;
+}
 
 
 /* General Navbar Styles */
@@ -43,11 +46,27 @@
     padding: 0 10px;
 }
 
+.separator1 {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+}
+
 .separator::before {
     content: '';
     display: block;
     width: 1.5px; 
     height: 50px; 
+    background-color:#1E2D3D; 
+    align-items: center;
+}
+.separator1::before {
+    content: '';
+    display: block;
+    width: 1.5px; 
+    height: 40px; 
     background-color:#1E2D3D; 
     align-items: center;
 }
@@ -79,3 +98,57 @@
     background-color: #607B96;;
   }
   
+
+.active{
+    color: #f39c12;
+}
+
+
+@media(max-width:768px){
+    .mobile{
+        display: block;
+        position: relative;
+    }
+
+    .mobile.open {
+        display: block;
+        height: 100vh;
+        /* overflow: hidden; */
+        /* background-color: #1E2D3D; */
+    }
+    .mobile.closed {
+        display: block;
+        height: auto;
+        overflow: visible;
+    }
+    .desktop{
+        display: none;
+    }
+  
+    .mobile-nav li{
+        display: flex;
+        align-items: center;
+        margin: 0 5px 0;
+        cursor: pointer;
+        color: #607B96;
+        height: 40px;
+    }
+   
+    .mobile-nav-icon{
+        font-size: 24px;
+    }
+    
+    .mobile-footer{
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        
+    }
+    .mobile-footer li{
+        color: #607B96;
+    }
+    
+   
+}
