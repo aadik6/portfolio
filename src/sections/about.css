@@ -29,3 +29,7 @@
     margin-left: -15px;
     background-color: #607B96;
 }
+
+.personal-info,.professional-info,.hobbies li{
+    cursor: pointer;
+}
