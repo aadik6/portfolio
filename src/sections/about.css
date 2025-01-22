@@ -33,3 +33,24 @@
 .personal-info,.professional-info,.hobbies li{
     cursor: pointer;
 }
+
+
+.code-container {
+    color: #607B96;         
+    padding: 10px;
+    border-radius: 5px;
+    height: calc(100vh - 150px);
+  }
+  
+  pre {
+    margin: 0;
+    line-height: 1.5;
+    white-space: pre-wrap;
+  }
+  
+  .code-span {
+    color: #6a9955; 
+    display: inline-block;
+    width: 4ch;
+  }
+  
