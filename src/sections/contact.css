@@ -1,0 +1,9 @@
+.contact-hr{
+    position: absolute;
+    top: 5em;
+    left: 0;
+    border: none;
+    height: 1px;
+    width: 100%;
+    background-color: #607B96;
+}

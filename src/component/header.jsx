@@ -32,7 +32,7 @@ function Header() {
                             </li>
                             <li className='tw-mx-8 separator'></li>
                             <li>
-                                <NavLink to="projects">_project</NavLink>
+                                <NavLink to="projects">_projects</NavLink>
                             </li>
                             <li className='tw-mx-8 separator'></li>
                         </div>
@@ -66,7 +66,7 @@ function Header() {
                                     <hr className='def-hr' />
                                     <li onClick={toogleIcon}><NavLink to="/about">_about-me</NavLink></li>
                                     <hr className='def-hr' />
-                                    <li onClick={toogleIcon}><NavLink to="/projects">_project</NavLink></li>
+                                    <li onClick={toogleIcon}><NavLink to="/projects">_projects</NavLink></li>
                                     <hr className='def-hr' />
                                     <li onClick={toogleIcon}><NavLink to="/contact">_contact</NavLink></li>
                                     <hr className='def-hr' />
