@@ -26,3 +26,20 @@ input[type="checkbox"]:checked::after {
     font-size: 10px;
 }
 
+.projects{
+    width: calc(100vw - 100px);
+    height: calc(100vh - 100px);
+    overflow-y: scroll;
+}
+
+
+/* hide scroll bar */
+.projects {
+    scrollbar-width: none; 
+    -ms-overflow-style: none; 
+  }
+  
+  .projects::-webkit-scrollbar {
+    display: none;
+  }
+  

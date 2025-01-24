@@ -14,22 +14,21 @@ function Card({ img, icon, para, gitlink, hostedLink }) {
                             }
                         </div>
                         {/* Content Section */}
-                        <div className="tw-p-2 tw-flex tw-flex-col tw-items-center">
-                            <p className="tw-text-[#cbd5e1] tw-my-3 tw-text-left">{para}</p>
-                            <div className="tw-flex tw-justify-start tw-gap-2">
+                        <div className="tw-p-2 tw-flex tw-flex-col ">
+                            <p className="tw-text-[#607B96] tw-my-3 tw-text-left">{para}</p>
+                            <div className="tw-flex tw-justify-end tw-gap-2">
                                 {gitlink &&
                                     <a
                                         href={gitlink}
-                                        className="tw-bg-[#334155] tw-text-white tw-rounded tw-px-4 tw-py-2 tw-text-sm tw-uppercase tw-shadow-md hover:tw-bg-[#475569]"
                                     >
-                                        GitHub
+                                        <i class="ri-github-fill tw-text-[#607B96] tw-text-[18px]"></i>
                                     </a>}
+                                    {hostedLink &&
                                 <a
                                     href={hostedLink}
-                                    className="tw-bg-[#0ea5e9] tw-text-white tw-rounded tw-px-4 tw-py-2 tw-text-sm tw-uppercase tw-shadow-md hover:tw-bg-[#0284c7]"
                                 >
-                                    View Project
-                                </a>
+                                    <i class="ri-cast-line tw-text-[#607B96] tw-text-[18px]"></i>    
+                                </a>} 
                             </div>
                         </div>
                     </div>
