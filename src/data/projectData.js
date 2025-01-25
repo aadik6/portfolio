@@ -42,7 +42,7 @@ const Projects = [
         type:'professional',
         tech:"react",
         title: "News",
-        description: "Design and developed an Admin pannel of News Portal where we easily manages posts and users and advertisement",
+        description: "Design and developed an Admin pannel of News Portal site where we easily manages news posts and users and advertisement",
         icon:"ri-reactjs-fill",
         img:LennoNews,
         hostedLink:"https://newsportal.admin.lennobyte.com/",

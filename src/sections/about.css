@@ -34,6 +34,13 @@
     cursor: pointer;
 }
 
+/* .details{
+    width: calc((100vw - 320px)/2);
+}
+.codesnippet{
+    width: calc((100vw - 350px)/2);
+    
+} */
 
 .code-container {
     color: #607B96;         

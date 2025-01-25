@@ -78,7 +78,7 @@ function About() {
         </div>
         <div className="about-details tw-flex tw-items-center tw-justify-center">
           {/* <li className='tw-ml-8 separator2'></li> */}
-          <div className="details tw-w-[35em]">
+          <div className="details ">
             <div class="code-container">
               <pre className='tw-text-[14px]'>
                 <p className='tw-text-[#607B96]'><span className='code-span'>  1  </span>/**</p>
@@ -103,7 +103,7 @@ function About() {
           </div>
           <li className='tw-ml-8  separator2'></li>
           <li className='tw-ml-2 separator2'></li>
-
+            <div className="codesnippet"></div>
         </div>
 
       </div>

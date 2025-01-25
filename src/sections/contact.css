@@ -9,12 +9,13 @@
 }
 
 .form {
-    width: 30em;
+    width: calc((100vw - 350px)/2);
 }
 
 input[type='text'],
-input[type='email'],textarea {
-    background-color:#011221;
+input[type='email'],
+textarea {
+    background-color: #011221;
     border: 1px solid #1E2D3D;
     border-radius: 5px;
     color: #465E77;
@@ -25,13 +26,76 @@ input[type='email'],textarea {
     outline: none;
     transition: border-color 0.3s;
 }
+
 input:focus,
 textarea:focus {
     /* border-width:1px ; */
-    border-color: #607B96; 
+    border-color: #607B96;
 }
 
 textarea {
-    resize: none; 
+    resize: none;
     height: 100px;
+}
+
+
+
+.formCode {
+    width: calc((100vw - 350px)/2);
+    overflow: hidden;
+}
+
+.code-container1 {
+    padding: 0 16px 0;
+    border-radius: 8px;
+
+
+    /* margin: 20px auto; */
+}
+
+pre {
+    margin: 0;
+    font-family: 'Fira Code', monospace;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #f8f8f2;
+}
+
+.keyword {
+    color: #e0954e;
+}
+
+.string {
+    color: #ccb42d;
+}
+
+.variable {
+    color: #3a0be4;
+    /* margin-left: 5px; */
+}
+
+.function {
+    color: #c678dd;
+}
+
+.property {
+    color: #3141d1;
+}
+
+.line-number {
+    display: inline-block;
+    width: 30px;
+    text-align: right;
+    color: #64748b;
+    /* Light gray for line numbers */
+    margin-right: 10px;
+    user-select: none;
+    /* Prevent selecting line numbers */
+}
+
+code div {
+    white-space: pre;
+    /* Preserve spacing in code */
+    display: flex;
+    align-items: center;
 }
