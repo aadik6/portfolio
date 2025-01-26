@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import Card from '../component/card';
 import { Projects } from '../data/projectData';
 import './project.css';
+import MobileFooter from '../component/mobileFooter';
 
 function Project() {
-    const [currentFile, setCurrentFile] = useState('personal'); 
-    const [selectedTech, setSelectedTech] = useState([]); 
+    const [currentFile, setCurrentFile] = useState('personal');
+    const [selectedTech, setSelectedTech] = useState([]);
+    const [mobileProjectType, setMobileProjectType] = useState(false);
+    const [mobileProjectTech, setMobileProjectTech] = useState(false);
 
     // Mapping technologies to their respective icons
     const techIcons = {
@@ -15,7 +18,7 @@ function Project() {
         php: 'ri-php-fill',
     };
 
-    
+
     const filteredProjects = Projects.filter((project) => {
         return (
             project.type === currentFile &&
@@ -27,7 +30,7 @@ function Project() {
         setSelectedTech((prevSelectedTech) =>
             prevSelectedTech.includes(tech)
                 ? prevSelectedTech.filter((t) => t !== tech) // Remove tech if already selected
-                : [...prevSelectedTech, tech] 
+                : [...prevSelectedTech, tech]
         );
     };
 
@@ -98,10 +101,72 @@ function Project() {
                 </div>
             </div>
             <div className="mobile">
-                <p className="tw-text-center">Desktop version is constructing now</p>
-            </div>
+                <div className="top-pro tw-sticky tw-top-0">
+                    <p className='tw-mt-3 tw-ml-5 tw-text-white'>_projects</p>
+                    <div className="project-tech tw-mt-3">
+                        <span className='tw-text-white tw-bg-[#1E2D3D] tw-w-[100vw] tw-block' onClick={() => { setMobileProjectTech(!mobileProjectTech) }}><i className={`ri-arrow-${mobileProjectTech ? "down" : "right"}-s-fill tw-text-white tw-bg-[#1E2D3D] tw-ml-5`}></i>projects</span>
+                        {mobileProjectTech &&
+                            <ul className='tw-ml-5'>
+                                {Object.keys(techIcons).map((tech) => (
+                                    <li key={tech} className="tw-flex tw-items-center">
+                                        <label className="tw-flex tw-items-center tw-cursor-pointer">
+                                            <input
+                                                type="checkbox"
+                                                checked={selectedTech.includes(tech)}
+                                                onChange={() => handleTechSelection(tech)}
+                                            />
+                                            <span className={`tw-text-${selectedTech.includes(tech) ? 'white' : '[#607B96]'}`}>
+                                                <i className={`${techIcons[tech]} tw-text-${selectedTech.includes(tech) ? 'white' : '[#607B96]'}`}></i> {tech.toUpperCase()}
+                                            </span>
+                                        </label>
+                                    </li>
+                                ))}
+                            </ul>
+                        }
+                    </div>
+                    <div className="project-type tw-mt-1">
+                        <span className='tw-text-white tw-bg-[#1E2D3D] tw-w-[100vw] tw-block' onClick={() => { setMobileProjectType(!mobileProjectType) }}><i className={`ri-arrow-${mobileProjectType ? "down" : "right"}-s-fill tw-text-white tw-bg-[#1E2D3D] tw-ml-5`}></i>project-type</span>
+                        {mobileProjectType &&
+                            <ul className='tw-flex tw-ml-5'>
+                                <li
+                                    className={`tw-ml-2 tw-my-2 tw-text-${currentFile==='personal'?'white':'[#607B96]'}`}
+                                    onClick={() => setCurrentFile('personal')}
+                                >
+                                    <i
+                                        className={`ri-user-3-line tw-text-${currentFile === 'personal' ? 'white' : '[#607B96]'}`}
+                                    ></i>personal
+                                </li>
+                                <li
+                                   className={`tw-ml-2 tw-my-2 tw-text-${currentFile==='professional'?'white':'[#607B96]'}`}
+                                    onClick={() => setCurrentFile('professional')}
+                                >
+                                    <i
+                                        className={`ri-projector-fill tw-text-${currentFile === 'professional' ? 'white' : '[#607B96]'}`}
+                                    ></i>professional
+                                </li>
+                            </ul>
+                        }
+                    </div>
+                </div>
+                <div className="mobile-projects tw-p-5">
+                    <div className="tw-flex tw-flex-wrap">
+                        {filteredProjects.map((project) => (
+                            <Card
+                                key={project.id}
+                                img={project.img}
+                                icon={project.icon}
+                                para={project.description}
+                                gitlink={project.gitLink}
+                                hostedLink={project.hostedLink}
+                            />
+                        ))}
+                    </div>
+                </div>
+                <MobileFooter />
+            </div >
         </>
     );
 }
 
 export default Project;
+

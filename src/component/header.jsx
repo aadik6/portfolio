@@ -3,6 +3,7 @@ import "./header.css"
 import { NavLink } from 'react-router-dom'
 import "remixicon/fonts/remixicon.css";
 import Footer from './footer';
+import MobileFooter from './mobileFooter';
 
 function Header() {
 
@@ -72,10 +73,7 @@ function Header() {
                                     <hr className='def-hr' />
                                 </ul>
                             </div>
-                            {/* <div className="headerFooter">
-                                <Footer/>
-                            </div> */}
-                            <div className="mobile-footer">
+                            {/* <div className="mobile-footer">
                                 <hr className='def-hr' />
                                 <ul className='tw-flex tw-justify-between tw-mx-1'>
                                     <div className="left">
@@ -92,7 +90,8 @@ function Header() {
                                         <li><a href='https://github.com/aadik6'><i class="ri-github-fill footer-icon"></i></a></li>
                                     </div>
                                 </ul>
-                            </div>
+                            </div> */}
+                            <MobileFooter />
                         </>
                     }
                 </div>

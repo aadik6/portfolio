@@ -3,7 +3,7 @@ import React from 'react'
 function Card({ img, icon, para, gitlink, hostedLink }) {
     return (
         <>
-            <div className="desktop">
+            {/* <div className="desktop"> */}
                 <div className="tw-flex tw-justify-center tw-items-center tw-gap-8 tw-p-8 tw-flex-wrap">
                     <div className="tw-card tw-bg-[#1e293b] tw-rounded-lg tw-shadow-lg tw-overflow-hidden tw-max-w-[300px]">
                         {/* Image Section */}
@@ -34,7 +34,7 @@ function Card({ img, icon, para, gitlink, hostedLink }) {
                     </div>
                 </div>
 
-            </div>
+            {/* </div> */}
             <div className="mobile">
 
             </div>

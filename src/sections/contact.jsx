@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import './contact.css'
+// import '../component/header.css'
 import { useForm } from 'react-hook-form'
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import MobileFooter from '../component/mobileFooter';
 
 const schema = z.object({
     name: z
@@ -17,6 +19,7 @@ const schema = z.object({
 });
 
 function Contact() {
+    const [mobileContactOpen, setMobileContactOpen] = useState(false);
     const [liveCode, setLiveCode] = useState({
         name: '',
         email: '',
@@ -99,7 +102,37 @@ function Contact() {
                 </div>
             </div>
             <div className="mobile">
-                <p className='tw-text-center'>Desktop version is constructing now</p>
+                <div className="top-cont">
+                    <p className='tw-mt-3 tw-ml-5 tw-text-white'>_contact-me</p>
+                    <div className="mobile-contacts tw-mt-3 tw-text-white">
+                        <span className='tw-text-white tw-bg-[#1E2D3D] tw-w-[100vw] tw-block' onClick={() => { setMobileContactOpen(!mobileContactOpen) }}><i className={`ri-arrow-${mobileContactOpen ? "down" : "right"}-s-fill tw-text-white tw-bg-[#1E2D3D] tw-ml-5`}></i>contacts</span>
+                        {mobileContactOpen &&
+                            <div className='tw-mt-2 tw-ml-5'>
+                                <p className='tw-flex tw-gap-[3px] tw-text-[#64748b]'><i class="ri-mail-fill tw-text-[#64748b]"></i>aadarshkumarman@gmail.com</p>
+                                <p className='tw-flex tw-gap-[3px] tw-text-[#64748b]'><i class="ri-phone-fill tw-text-[#64748b]"></i>9806814329</p>
+                            </div>}
+
+                    </div>
+                    <form onSubmit={handleSubmit(submit)} className="mobile-form  tw-flex tw-flex-col tw-p-5 tw-justify-center tw-gap-2 ">
+                        <div className="tw-flex tw-flex-col tw-gap-1 ">
+                            <label htmlFor="name" className='tw-text-[#607B96]'>_name:</label>
+                            <input type="text" {...register('name')} />
+                            {errors.name && <p className='tw-text-[#C98BDF] tw-text-[12px] tw-mt-[-15px]'>{errors.name.message}</p>}
+                        </div>
+                        <div className="tw-flex tw-flex-col tw-gap-1">
+                            <label htmlFor="email" className='tw-text-[#607B96]'>_email:</label>
+                            <input type="email" {...register('email')} />
+                            {errors.email && <p className='tw-text-[#C98BDF] tw-text-[12px] tw-mt-[-15px]'>{errors.email.message}</p>}
+                        </div>
+                        <div className="tw-flex tw-flex-col tw-gap-1">
+                            <label htmlFor="message" className='tw-text-[#607B96]'>_messages:</label>
+                            <textarea type="text" {...register('message')} />
+                            {errors.message && <p className='tw-text-[#607B96] tw-text-[12px] tw-mt-[-12px]'>{errors.message.message}</p>}
+                        </div>
+                        <button type='submit' className='tw-p-2 tw-bg-[#1C2B3A] tw-rounded tw-text-[#FFFFFF] tw-text-[14px]'>submit-message</button>
+                    </form>
+                    <MobileFooter/>
+                </div>
             </div>
         </>
     )
