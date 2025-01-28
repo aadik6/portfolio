@@ -20,20 +20,19 @@ const schema = z.object({
 
 function Contact() {
     const [mobileContactOpen, setMobileContactOpen] = useState(false);
-    const [liveCode, setLiveCode] = useState({
-        name: '',
-        email: '',
-        message: '',
-        date: new Date().toDateString(),
-    });
-
-    const { register, handleSubmit, formState: { errors } } = useForm({ resolver: zodResolver(schema), });
     const submit = (data) => {
         console.log(data)
     }
-    const handleInputChange = (field, value) => {
-        setLiveCode((prev) => ({ ...prev, [field]: value }));
+
+    const { register, handleSubmit, formState: { errors }, watch } = useForm({ resolver: zodResolver(schema) });
+
+    const liveCode = {
+        name: watch('name', ''),
+        email: watch('email', ''),
+        message: watch('message', ''),
+        date: new Date().toDateString(),
     };
+
     return (
         <>
             <div className="desktop">
@@ -52,21 +51,22 @@ function Contact() {
                             <form onSubmit={handleSubmit(submit)} className="form tw-w-52 tw-flex tw-flex-col tw-items-center tw-justify-center tw-gap-2 tw-ml-5">
                                 <div className="tw-flex tw-flex-col tw-gap-1 ">
                                     <label htmlFor="name" className='tw-text-[#607B96]'>_name:</label>
-                                    <input type="text" {...register('name')} onChange={(e) => handleInputChange('name', e.target.value)} />
+                                    <input type="text" {...register('name')} />
                                     {errors.name && <p className='tw-text-[#C98BDF] tw-text-[12px] tw-mt-[-15px]'>{errors.name.message}</p>}
                                 </div>
                                 <div className="tw-flex tw-flex-col tw-gap-1">
                                     <label htmlFor="email" className='tw-text-[#607B96]'>_email:</label>
-                                    <input type="email" {...register('email')} onChange={(e) => handleInputChange('email', e.target.value)} />
+                                    <input type="email" {...register('email')} />
                                     {errors.email && <p className='tw-text-[#C98BDF] tw-text-[12px] tw-mt-[-15px]'>{errors.email.message}</p>}
                                 </div>
                                 <div className="tw-flex tw-flex-col tw-gap-1">
                                     <label htmlFor="message" className='tw-text-[#607B96]'>_messages:</label>
-                                    <textarea type="text" {...register('message')} onChange={(e) => handleInputChange('message', e.target.value)} />
+                                    <textarea type="text" {...register('message')} />
                                     {errors.message && <p className='tw-text-[#607B96] tw-text-[12px] tw-mt-[-12px]'>{errors.message.message}</p>}
                                 </div>
                                 <button type='submit' className='tw-p-2 tw-bg-[#1C2B3A] tw-rounded tw-text-[#FFFFFF] tw-text-[14px]'>submit-message</button>
                             </form>
+
                             <div className="separator2"></div>
                             <div className="formCode tw-flex tw-flex-col tw-justify-center">
                                 <div className="code-container1 tw-flex tw-items-center">
@@ -131,7 +131,7 @@ function Contact() {
                         </div>
                         <button type='submit' className='tw-p-2 tw-bg-[#1C2B3A] tw-rounded tw-text-[#FFFFFF] tw-text-[14px]'>submit-message</button>
                     </form>
-                    <MobileFooter/>
+                    <MobileFooter />
                 </div>
             </div>
         </>

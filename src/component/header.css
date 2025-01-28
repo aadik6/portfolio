@@ -31,7 +31,7 @@
     display: flex;
 }
 
-.mobile {
+.mobile,.mobile-card {
     display: none;
 }
 
@@ -112,6 +112,10 @@
     .mobile {
         display: block;
         position: relative;
+    }
+    /* card css */
+    .mobile-card{
+        display: block;
     }
 
     .mobile.open {
