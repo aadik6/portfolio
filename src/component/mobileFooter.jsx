@@ -21,6 +21,7 @@ function MobileFooter() {
                         <li><a href='https://github.com/aadik6'><i class="ri-github-fill footer-icon"></i></a></li>
                     </div>
                 </ul>
+                <hr className='def-hr' />
             </div>
         </>
     )

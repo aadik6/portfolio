@@ -34,7 +34,7 @@ const Projects = [
         description: "Design and developed an Admin pannel of Ecommerce site where we easily manages oprders and users and purchase/sales book",
         icon:"ri-reactjs-fill",
         img:LennoEcom,
-        hostedLink:"https://https://ecomm.admin.lennobyte.com/",
+        hostedLink:"https://ecomm.admin.lennobyte.com/",
 
     },
     {
