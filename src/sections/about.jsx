@@ -107,7 +107,29 @@ function About() {
           </div>
           <li className='tw-ml-8  separator2'></li>
           <li className='tw-ml-2 separator2'></li>
-          <div className="codesnippet"></div>
+          <div className="codesnippet">
+            <pre>
+              <code>
+                <p className='tw-text-[#607B96]'><span className="line-number">1</span>// shows currentFile</p>
+                <div className='tw-flex tw-flex-wrap'><span className="line-number">2</span> <span className="keyword">const</span>{" "}
+                  currentFile = (
+                  <span className="string">'{currentFile}'</span>);
+                </div>
+                <div><span className="line-number">3</span></div>
+                <div><span className="line-number">4</span> <span className="keyword">const </span> <span className="variable">currentPage</span> = {"{"}</div>
+                {/* <div><span className="line-number">4</span> &nbsp;&nbsp;<span className="property">name</span>:{" "}
+                  <span className="string">""</span>,</div>
+                <div><span className="line-number">5</span> &nbsp;&nbsp;<span className="property">email</span>:{" "}
+                  <span className="string">""</span>,</div>
+                <div><span className="line-number">6</span> &nbsp;&nbsp;<span className="property">message</span>:{" "}
+                  <span className="string">""</span>,</div>
+                <div><span className="line-number">7</span> &nbsp;&nbsp;<span className="property">date</span>:{" "}
+                  <span className="string">""</span></div>
+                <div><span className="line-number">8</span> {"}"};</div>
+                <div><span className="line-number">9</span></div> */}
+              </code>
+            </pre>
+          </div>
         </div>
 
       </div>
@@ -115,7 +137,7 @@ function About() {
         <div className="top-about tw-sticky tw-top-0">
           <p className='tw-mt-3 tw-ml-5 tw-text-white'>_about-me</p>
           <div className="mobile-personal-info tw-mt-3">
-            <span className='tw-text-white tw-bg-[#1E2D3D] tw-w-[100vw] tw-block' onClick={() => { setIsMobilePersonalOpen(!isMobbilePersonalOpen) }}><i className={`ri-arrow-${isMobbilePersonalOpen ? "down" : "right"}-s-fill tw-text-white tw-bg-[#1E2D3D] tw-ml-5`}></i>personal-info</span>
+            <span className='tw-text-white tw-bg-[#1E2D3D]  tw-block' onClick={() => { setIsMobilePersonalOpen(!isMobbilePersonalOpen) }}><i className={`ri-arrow-${isMobbilePersonalOpen ? "down" : "right"}-s-fill tw-text-white tw-bg-[#1E2D3D] tw-ml-5`}></i>personal-info</span>
             {isMobbilePersonalOpen &&
               <ul className='tw-ml-5'>
                 <li className='tw-text-white' onClick={() => setIsBioOpen(!isBioOpen)}><i className={`ri-arrow-${isBioOpen ? 'down' : 'right'}-s-line tw-text-[#607B96] tw-text-[20px]`}></i><i class="ri-folder-6-fill tw-text-pink-400"></i> bio</li>
@@ -142,7 +164,7 @@ function About() {
             }
           </div>
           <div className="mobile-professional-info tw-mt-1">
-            <span className='tw-text-white tw-bg-[#1E2D3D] tw-w-[100vw] tw-block' onClick={() => { setIsMobileProfessionalOpen(!isMobbileProfessionalOpen) }}><i className={`ri-arrow-${isMobbileProfessionalOpen ? "down" : "right"}-s-fill tw-text-white tw-bg-[#1E2D3D] tw-ml-5`}></i>professional-info</span>
+            <span className='tw-text-white tw-bg-[#1E2D3D]  tw-block' onClick={() => { setIsMobileProfessionalOpen(!isMobbileProfessionalOpen) }}><i className={`ri-arrow-${isMobbileProfessionalOpen ? "down" : "right"}-s-fill tw-text-white tw-bg-[#1E2D3D] tw-ml-5`}></i>professional-info</span>
             {isMobbileProfessionalOpen &&
               <ul className='tw-ml-5'>
                 <li className={`tw-text-${isExperienceOpen ? 'white' : '[#607B96]'}`} onClick={() => { setIsExperienceOpen(!isExperienceOpen) }}><i className={`ri-arrow-${isExperienceOpen ? 'down' : 'right'}-s-line tw-text-[#607B96] tw-text-[20px]`}></i><i class="ri-folder-6-fill tw-text-pink-400"></i> experience</li>
@@ -152,7 +174,7 @@ function About() {
             }
           </div>
           <div className="mobile-hobbies tw-mt-1">
-            <span className='tw-text-white tw-bg-[#1E2D3D] tw-w-[100vw] tw-block' onClick={() => { setIsMobileHobbiesOpen(!isMobileHobbiesOpen) }}><i className={`ri-arrow-${isMobileHobbiesOpen ? "down" : "right"}-s-fill tw-text-white tw-bg-[#1E2D3D] tw-ml-5`}></i>hobbies</span>
+            <span className='tw-text-white tw-bg-[#1E2D3D]  tw-block' onClick={() => { setIsMobileHobbiesOpen(!isMobileHobbiesOpen) }}><i className={`ri-arrow-${isMobileHobbiesOpen ? "down" : "right"}-s-fill tw-text-white tw-bg-[#1E2D3D] tw-ml-5`}></i>hobbies</span>
             {isMobileHobbiesOpen &&
               <ul className='tw-ml-5'>
                 <li className={`tw-text-${isMusicOpen ? 'white' : '[#607B96]'}`} onClick={() => { setIsMUsicOpen(!isMusicOpen) }}><i className={`ri-arrow-${isMusicOpen ? 'down' : 'right'}-s-line tw-text-[#607B96] tw-text-[20px]`}></i><i class="ri-folder-6-fill tw-text-pink-400"></i> music</li>
@@ -219,7 +241,7 @@ function About() {
             </div>
           }
         </div>
-          
+
         <MobileFooter />
       </div>
     </>
