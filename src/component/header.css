@@ -109,6 +109,9 @@
 
 
 @media(max-width:768px) {
+    *{
+        user-select: none;
+    }
     .mobile {
         display: block;
         position: relative;
