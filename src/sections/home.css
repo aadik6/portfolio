@@ -110,7 +110,9 @@ a {
   .blob {
     animation: rotateAndTranslate 10s ease-in-out infinite; 
   }
-
+ .roll{
+  font-size: 25px;
+ }
   .leftText {
     margin-left: 10px;
   }
