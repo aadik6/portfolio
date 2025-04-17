@@ -8,6 +8,8 @@ import About from './sections/about'
 import Project from './sections/project'
 import Card from './component/card'
 import Contact from './sections/contact'
+import ChatComponent from './component/aiChart'
+import MessageIcon from './component/messageIcon'
 
 function App() {
   return (
@@ -19,8 +21,9 @@ function App() {
           <Route path='/about' element={<About/>}/>
           <Route path='/projects' element={<Project/>}/>
           <Route path='/contact' element={<Contact/>}/>
+          <Route path ='/chat' element = {<ChatComponent/>}/>
         </Routes>
-        
+        <MessageIcon/>
         <Footer />
     </Router>
   )
