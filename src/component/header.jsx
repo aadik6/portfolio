@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./header.css";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "remixicon/fonts/remixicon.css";
 import Footer from "./footer";
 import MobileFooter from "./mobileFooter";
@@ -19,7 +19,11 @@ function Header() {
         <div className="nav tw-container">
           <ul className="menu">
             <div className="logo">
-              <li>Aadarsh Kushwaha</li>
+              <li>
+                <Link to="/" className="tw-text-[#607B96]">
+                  Aadarsh Kushwaha
+                </Link>
+              </li>
             </div>
             <div className="menu-right">
               <li className="tw-mx-8 separator"></li>

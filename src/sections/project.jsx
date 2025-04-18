@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "../component/card";
 import { Projects } from "../data/projectData";
 import "./project.css";
@@ -24,6 +24,10 @@ function Project() {
       (selectedTech.length === 0 || selectedTech.includes(project.tech))
     );
   });
+
+  // useEffect(()=>{
+  //   filteredProjects()
+  // },[])
 
   const handleTechSelection = (tech) => {
     setSelectedTech((prevSelectedTech) =>

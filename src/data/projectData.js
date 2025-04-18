@@ -1,10 +1,23 @@
 import NewsImg from './images/newsportal.png'
 import LennoEcom from './images/EcommLenno.jpeg'
 import LennoNews from './images/NewsAdminLenno.png'
+import Skywatch from './images/image.png'
 
 const Projects = [
     {
         id: 1,
+        type:"personal",
+        tech:"react",
+        title: "SkyWatch",
+        description: "Developed a dynamic weather app, SkyWatch, leveraging React and React TanStack Query to fetch and display real-time weather data efficiently.",
+        icon:"ri-reactjs-fill",
+        img:Skywatch,
+        gitLink:"https://github.com/aadik6/skywatch-weatherApp",
+        hostedLink:"https://skywatch.aadarshkushwaha.com.np",
+
+    },
+    {
+        id: 2,
         type:"personal",
         tech:"react",
         title: "News Portal",
@@ -16,7 +29,7 @@ const Projects = [
 
     },
     {
-        id: 2,
+        id: 3,
         type:"personal",
         tech:"php",
         title: "Medi Connect",
@@ -27,7 +40,7 @@ const Projects = [
 
     },
     {
-        id: 3,
+        id: 4,
         type:'professional',
         tech:"react",
         title: "News",
@@ -38,7 +51,7 @@ const Projects = [
 
     },
     {
-        id: 4,
+        id: 5,
         type:'professional',
         tech:"react",
         title: "News",
