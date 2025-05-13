@@ -24,6 +24,7 @@ const AiChart = () => {
     setMessages((prevMessages) => [...prevMessages, userMessage]);
 
     try {
+      // const response = await fetch("http://localhost:8000/ai-assistant", {
       const response = await fetch("https://portfolio-backend-mu-gules.vercel.app/ai-assistant", {
         method: "POST",
         headers: {

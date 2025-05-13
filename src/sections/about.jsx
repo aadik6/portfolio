@@ -2,10 +2,14 @@ import React, { useState } from 'react'
 import './about.css'
 import "remixicon/fonts/remixicon.css";
 import MobileFooter from '../component/mobileFooter';
+import Bio from '../component/bio';
+import Interest from '../component/interest';
+import Education from '../component/education';
 
 function About() {
   const [currentFile, setCurrentFile] = useState('personal-info')
-  const [isBioOpen, setIsBioOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState('bio');
+  const [isBioOpen, setIsBioOpen] = useState(true);
   const [isInterestOpen, setIsInterestOpen] = useState(false);
   const [isEducationOpen, setEducationOpen] = useState(false);
   const [isExperienceOpen, setIsExperienceOpen] = useState(false);
@@ -36,24 +40,24 @@ function About() {
             {currentFile == 'personal-info' &&
               <div className='personal-info tw-mt-5 tw-ml-1'>
                 <ul>
-                  <li className='tw-text-white' onClick={() => setIsBioOpen(!isBioOpen)}><i className={`ri-arrow-${isBioOpen ? 'down' : 'right'}-s-line tw-text-[#607B96] tw-text-[20px]`}></i><i class="ri-folder-6-fill tw-text-pink-400"></i> bio</li>
-                  {isBioOpen &&
+                  <li className='tw-text-white' onClick={()=>{setCurrentPage('bio')}}><i className={`ri-arrow-${isBioOpen ? 'down' : 'right'}-s-line tw-text-[#607B96] tw-text-[20px]`}></i><i class="ri-folder-6-fill tw-text-pink-400"></i> bio</li>
+                  {/* {isBioOpen &&
                     <ul className='tw-ml-5'>
                       <li className='tw-text-[16px] tw-text-[#607B96]'><i class="ri-id-card-line tw-text-[#607B96]"></i> cv</li>
                     </ul>
-                  }
-                  <li className='tw-text-[#607B96] tw-mt-0.5' onClick={() => { setIsInterestOpen(!isInterestOpen) }}><i className={`ri-arrow-${isInterestOpen ? 'down' : 'right'}-s-line tw-text-[#607B96] tw-text-[20px]`}></i><i class="ri-folder-6-fill tw-text-sky-500"></i> interest</li>
+                  } */}
+                  <li className={`${isInterestOpen ? "tw-text-white":"tw-text-[#607B96]"} tw-mt-0.5`} onClick={() => { setIsInterestOpen(!isInterestOpen);setCurrentPage('interest') }}><i className={`ri-arrow-${isInterestOpen ? 'down' : 'right'}-s-line ${isInterestOpen ? "tw-text-white":"tw-text-[#607B96]"}  tw-text-[20px]`}></i><i class="ri-folder-6-fill tw-text-sky-500"></i> interest</li>
                   {isInterestOpen &&
                     <ul className='tw-ml-5'>
                       <li className='tw-text-[16px] tw-text-[#607B96]'><i class="ri-markdown-fill tw-text-[#607B96]"></i> my-interest</li>
                     </ul>
                   }
-                  <li className='tw-text-[#607B96] tw-mt-0.5' onClick={() => { setEducationOpen(!isEducationOpen) }}><i className={`ri-arrow-${isEducationOpen ? 'down' : 'right'}-s-line tw-text-[#607B96] tw-text-[20px]`}></i><i class="ri-folder-6-fill tw-text-green-500"></i> education</li>
+                  <li className={`${isEducationOpen ? "tw-text-white":"tw-text-[#607B96]"} tw-mt-0.5`} onClick={() => { setEducationOpen(!isEducationOpen);setCurrentPage('education') }}><i className={`ri-arrow-${isEducationOpen ? 'down' : 'right'}-s-line tw-text-[#607B96] tw-text-[20px]`}></i><i class="ri-folder-6-fill tw-text-green-500"></i> education</li>
                   {isEducationOpen &&
                     <ul className='tw-ml-5'>
-                      <li className='tw-text-[16px] tw-text-[#607B96]'><i class="ri-markdown-fill tw-text-[#607B96]"></i> school</li>
-                      <li className='tw-text-[16px] tw-text-[#607B96]'><i class="ri-markdown-fill tw-text-[#607B96]"></i> high-school</li>
                       <li className='tw-text-[16px] tw-text-[#607B96]'><i class="ri-markdown-fill tw-text-[#607B96]"></i> univercity</li>
+                      <li className='tw-text-[16px] tw-text-[#607B96]'><i class="ri-markdown-fill tw-text-[#607B96]"></i> high-school</li>
+                      <li className='tw-text-[16px] tw-text-[#607B96]'><i class="ri-markdown-fill tw-text-[#607B96]"></i> school</li>
                     </ul>
                   }
                 </ul>
@@ -82,54 +86,14 @@ function About() {
         </div>
         <div className="about-details tw-flex tw-items-center tw-justify-center">
           {/* <li className='tw-ml-8 separator2'></li> */}
-          <div className="details ">
-            <div class="code-container">
-              <pre className='tw-text-[14px]'>
-                <p className='tw-text-[#607B96]'><span className='code-span'>  1  </span>/**</p>
-                <p className='tw-text-[#607B96]'><span className='code-span'>  2  </span>* About me</p>
-                <p className='tw-text-[#607B96]'><span className='code-span'>  3  </span>* I am a frontend developer with 1.5 years of experience</p>
-                <p className='tw-text-[#607B96]'><span className='code-span'>  4  </span>* working on React-based dynamic projects. I started my</p>
-                <p className='tw-text-[#607B96]'><span className='code-span'>  5  </span>* career creating static websites, eventually transitioning</p>
-                <p className='tw-text-[#607B96]'><span className='code-span'>  6  </span>* to modern web applications with advanced frameworks.</p>
-                <p className='tw-text-[#607B96]'><span className='code-span'>  7  </span>*</p>
-                <p className='tw-text-[#607B96]'><span className='code-span'>  8  </span>* I am passionate about building scalable, responsive,</p>
-                <p className='tw-text-[#607B96]'><span className='code-span'>  9  </span>* and user-friendly interfaces. With skills in React,</p>
-                <p className='tw-text-[#607B96]'><span className='code-span'> 10  </span>* JavaScript, and Mongoose, I continuously strive to</p>
-                <p className='tw-text-[#607B96]'><span className='code-span'> 11  </span>* improve and stay updated with the latest technologies.</p>
-                <p className='tw-text-[#607B96]'><span className='code-span'> 12  </span>*</p>
-                <p className='tw-text-[#607B96]'><span className='code-span'> 13  </span>* Currently, I am applying for full-time positions and</p>
-                <p className='tw-text-[#607B96]'><span className='code-span'> 14  </span>* exploring opportunities to further my career in web</p>
-                <p className='tw-text-[#607B96]'><span className='code-span'> 15  </span>* and mobile development.</p>
-                <p className='tw-text-[#607B96]'><span className='code-span'> 16  </span>*/</p>
-              </pre>
-            </div>
-
-          </div>
-          <li className='tw-ml-8  separator2'></li>
-          <li className='tw-ml-2 separator2'></li>
-          <div className="codesnippet">
-            <pre>
-              <code>
-                <p className='tw-text-[#607B96]'><span className="line-number">1</span>// shows currentFile</p>
-                <div className='tw-flex tw-flex-wrap'><span className="line-number">2</span> <span className="keyword">const</span>{" "}
-                  currentFile = (
-                  <span className="string">'{currentFile}'</span>);
-                </div>
-                <div><span className="line-number">3</span></div>
-                <div><span className="line-number">4</span> <span className="keyword">const </span> <span className="variable">currentPage</span> = {"{"}</div>
-                {/* <div><span className="line-number">4</span> &nbsp;&nbsp;<span className="property">name</span>:{" "}
-                  <span className="string">""</span>,</div>
-                <div><span className="line-number">5</span> &nbsp;&nbsp;<span className="property">email</span>:{" "}
-                  <span className="string">""</span>,</div>
-                <div><span className="line-number">6</span> &nbsp;&nbsp;<span className="property">message</span>:{" "}
-                  <span className="string">""</span>,</div>
-                <div><span className="line-number">7</span> &nbsp;&nbsp;<span className="property">date</span>:{" "}
-                  <span className="string">""</span></div>
-                <div><span className="line-number">8</span> {"}"};</div>
-                <div><span className="line-number">9</span></div> */}
-              </code>
-            </pre>
-          </div>
+          {currentPage==='bio' && (
+         <Bio />  
+          )}
+          {currentPage==='interest' && (
+            <Interest/>)
+            }
+          {currentPage==='education' && (
+            <Education/>)}
         </div>
 
       </div>

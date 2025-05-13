@@ -27,8 +27,9 @@ input[type="checkbox"]:checked::after {
 }
 
 .projects{
+    margin-top: 40px;
     width: calc(100vw - 100px);
-    height: calc(100vh - 100px);
+    height: calc(100vh - 150px);
     overflow-y: scroll;
 }
 

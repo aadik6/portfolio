@@ -1,7 +1,8 @@
 import NewsImg from './images/newsportal.png'
 import LennoEcom from './images/EcommLenno.jpeg'
 import LennoNews from './images/NewsAdminLenno.png'
-import Skywatch from './images/image.png'
+import Skywatch from './images/weather.png'
+import Doctor from './images/doctor.png'
 
 const Projects = [
     {
@@ -35,7 +36,7 @@ const Projects = [
         title: "Medi Connect",
         description: "created doctors appointment web app. Where user take appointment from doctors and doctors manage appointment and admin manages entire app.",
         icon:"ri-php-fill",
-        img:NewsImg,
+        img:Doctor,
         gitLink:"https://github.com/aadik6/mediconnect",
 
     },
