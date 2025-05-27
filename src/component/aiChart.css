@@ -1,19 +1,201 @@
-/* .parentChat{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-}
-.chart{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 80vh;
-    min-width: 150PX;
-    width: auto;
-    border: 1px solid blueviolet;
-    box-shadow: 1px 2px 1px;
-    border-radius: 10px;
 
-} */
+.ai-chat-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+
+  .chat-messages {
+    scrollbar-width: thin;
+    scrollbar-color: #1E2D3D transparent;
+  }
+  
+  .chat-messages::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  .chat-messages::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .chat-messages::-webkit-scrollbar-thumb {
+    background-color: #1E2D3D;
+    border-radius: 6px;
+  }
+  
+  /* Typing indicator animation */
+  .typing-indicator {
+    display: flex;
+    align-items: center;
+  }
+  
+  .typing-indicator span {
+    height: 8px;
+    width: 8px;
+    margin: 0 2px;
+    background-color: #607B96;
+    border-radius: 50%;
+    display: inline-block;
+    opacity: 0.4;
+  }
+  
+  .typing-indicator span:nth-child(1) {
+    animation: pulse 1s infinite;
+  }
+  
+  .typing-indicator span:nth-child(2) {
+    animation: pulse 1s infinite 0.2s;
+  }
+  
+  .typing-indicator span:nth-child(3) {
+    animation: pulse 1s infinite 0.4s;
+  }
+  
+  @keyframes pulse {
+    0% {
+      opacity: 0.4;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.2);
+    }
+    100% {
+      opacity: 0.4;
+      transform: scale(1);
+    }
+  }
+  
+  /* Message transition animations */
+  .chat-messages > div {
+    animation: fadeIn 0.3s ease-out;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Code block styling for AI responses */
+  .ai-code-block {
+    background-color: #011221;
+    border: 1px solid #1E2D3D;
+    border-radius: 4px;
+    padding: 12px;
+    font-family: 'Fira Code', monospace;
+    margin: 8px 0;
+    position: relative;
+  }
+  
+  .ai-code-block pre {
+    margin: 0;
+    white-space: pre-wrap;
+    color: #607B96;
+    background-color: #011221;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  
+  .ai-code-block code {
+    color: #607B96;
+    background: transparent;
+  }
+  
+  .copy-code-button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background-color: #1E2D3D;
+    color: #607B96;
+    border: none;
+    border-radius: 4px;
+    padding: 3px 8px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .copy-code-button:hover {
+    background-color: #4D5BCE;
+    color: white;
+  }
+
+  /* Chat button pulse animation */
+  .pulse-animation {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: linear-gradient(to right, #43D9AD, #4D5BCE);
+    opacity: 0.6;
+    z-index: -1;
+    animation: pulse-ring 2s infinite;
+  }
+  
+  @keyframes pulse-ring {
+    0% {
+      transform: scale(1);
+      opacity: 0.6;
+    }
+    50% {
+      transform: scale(1.15);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 0;
+    }
+  }
+
+  .code-language {
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    background-color: #1E2D3D;
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+
+  /* Chat dialog animations */
+  .chat-dialog {
+    /* transform-origin: bottom left; */
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  }
+
+/* Add to aiChart.css */
+dialog {
+  max-width: 100vw;
+  max-height: 100vh;
+}
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+dialog:focus {
+  outline: none;
+}
+
+
+/* Add specific animation for dialog */
+@keyframes dialogAppear {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+dialog[open] {
+  animation: dialogAppear 0.3s ease-out;
+}

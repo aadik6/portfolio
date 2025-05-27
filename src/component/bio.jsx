@@ -66,19 +66,20 @@ const Bio = () => {
         <pre>
           <code>
             <p className="tw-text-[#607B96]"><span className="line-number">1</span>// bio.js</p>
-            <div><span className="line-number">2</span> <span className="keyword">const</span> <span className="variable">aadarsh</span> = {"{"}</div>
+            <div><span className="line-number">2</span> <span className="keyword">const </span> <span className="variable">aadarsh</span> = {"{"}</div>
             <div><span className="line-number">3</span>   <span className="property">name</span>: <span className="string">'Aadarsh Kushwaha'</span>,</div>
             <div><span className="line-number">4</span>   <span className="property">title</span>: <span className="string">'Frontend Developer'</span>,</div>
             <div><span className="line-number">5</span>   <span className="property">skills</span>: [</div>
-            <div><span className="line-number">6</span>     <span className="string">'React'</span>,</div>
+            <div><span className="line-number">6</span>     <span className="string">'MERN'</span>,</div>
             <div><span className="line-number">7</span>     <span className="string">'JavaScript'</span>,</div>
-            <div><span className="line-number">8</span>     <span className="string">'CSS/Tailwind'</span>,</div>
-            <div><span className="line-number">9</span>     <span className="string">'Responsive Design'</span></div>
-            <div><span className="line-number">10</span>   ],</div>
-            <div><span className="line-number">11</span>   <span className="property">getResume</span>: <span className="keyword">{"() =>"}</span> {"{"}  </div>
-            <div><span className="line-number">12</span>     <span className="keyword">return</span> <span className="string">'download_cv.pdf'</span>;</div>
-            <div><span className="line-number">13</span>   {"}"}</div>
-            <div><span className="line-number">14</span>{"}"}</div>
+            <div><span className="line-number">8</span>     <span className="string">'HTML'</span>,</div>
+            <div><span className="line-number">9</span>     <span className="string">'CSS/Tailwind'</span>,</div>
+            <div><span className="line-number">10</span>     <span className="string">'Responsive Design'</span></div>
+            <div><span className="line-number">11</span>   ],</div>
+            <div><span className="line-number">12</span>   <span className="property">getResume</span>: <span className="keyword">{"() =>"}</span> {"{"}  </div>
+            <div><span className="line-number">13</span>     <span className="keyword">return</span> <span className="string">'download_cv.pdf'</span>;</div>
+            <div><span className="line-number">14</span>   {"}"}</div>
+            <div><span className="line-number">15</span>{"}"}</div>
           </code>
         </pre>
       </div>

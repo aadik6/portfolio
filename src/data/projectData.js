@@ -3,10 +3,23 @@ import LennoEcom from './images/EcommLenno.jpeg'
 import LennoNews from './images/NewsAdminLenno.png'
 import Skywatch from './images/weather.png'
 import Doctor from './images/doctor.png'
+import BirgunjByte from './images/BirgunjByte.png';
 
 const Projects = [
     {
         id: 1,
+        type:"personal",
+        tech:"react",
+        title: "BirgunjByte",
+        description:"Crafted Birgunj Byte News Portal, a Nepali-medium platform powered by MERN, TypeScript, and Zustand, delivering dynamic news updates.",
+        icon:"ri-reactjs-fill",
+        img:BirgunjByte,
+        gitLink:"github.com/aadik6/BirgunjByte",
+        hostedLink:"https://birgunj-byte.aadarshkushwaha.com.np/",
+
+    },
+    {
+        id: 2,
         type:"personal",
         tech:"react",
         title: "SkyWatch",
@@ -18,7 +31,7 @@ const Projects = [
 
     },
     {
-        id: 2,
+        id: 3,
         type:"personal",
         tech:"react",
         title: "News Portal",
@@ -30,7 +43,7 @@ const Projects = [
 
     },
     {
-        id: 3,
+        id: 4,
         type:"personal",
         tech:"php",
         title: "Medi Connect",
@@ -41,10 +54,10 @@ const Projects = [
 
     },
     {
-        id: 4,
+        id: 5,
         type:'professional',
         tech:"react",
-        title: "News",
+        title: "Eccomerce Admin Pannel",
         description: "Design and developed an Admin pannel of Ecommerce site where we easily manages oprders and users and purchase/sales book",
         icon:"ri-reactjs-fill",
         img:LennoEcom,
@@ -52,16 +65,16 @@ const Projects = [
 
     },
     {
-        id: 5,
+        id: 6,
         type:'professional',
         tech:"react",
-        title: "News",
+        title: "News Admin Pannel",
         description: "Design and developed an Admin pannel of News Portal site where we easily manages news posts and users and advertisement",
         icon:"ri-reactjs-fill",
         img:LennoNews,
         hostedLink:"https://newsportal.admin.lennobyte.com/",
 
-    }
+    },
 ];
 
 export {Projects}

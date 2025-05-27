@@ -5,6 +5,7 @@ import MobileFooter from '../component/mobileFooter';
 import Bio from '../component/bio';
 import Interest from '../component/interest';
 import Education from '../component/education';
+import Skills from '../component/skills';
 
 function About() {
   const [currentFile, setCurrentFile] = useState('personal-info')
@@ -67,7 +68,7 @@ function About() {
               <div className='professional-info tw-mt-5 tw-ml-1'>
                 <ul>
                   <li className='tw-text-[#607B96]' onClick={() => { setIsExperienceOpen(!isExperienceOpen) }}><i className={`ri-arrow-${isExperienceOpen ? 'down' : 'right'}-s-line tw-text-[#607B96] tw-text-[20px]`}></i><i class="ri-folder-6-fill tw-text-pink-400"></i> experience</li>
-                  <li className='tw-text-[#607B96] tw-mt-0.5' onClick={() => { setIsSkillOpen(!isSkillOpen) }}><i className={`ri-arrow-${isSkillOpen ? 'down' : 'right'}-s-line tw-text-[#607B96] tw-text-[20px]`}></i><i class="ri-folder-6-fill tw-text-sky-500"></i> skills</li>
+                  <li className={`${currentPage==='skills'?"tw-text-white":"tw-text-[#607B96]"} tw-mt-0.5`} onClick={() => { setIsSkillOpen(!isSkillOpen);setCurrentPage('skills') }}><i className={`ri-arrow-${isSkillOpen ? 'down' : 'right'}-s-line tw-text-[#607B96] tw-text-[20px]`}></i><i class="ri-folder-6-fill tw-text-sky-500"></i> skills</li>
                   <li className='tw-text-[#607B96] tw-mt-0.5' onClick={() => { setIsCertificateOpen(!isCertificateOpen) }}><i className={`ri-arrow-${isCertificateOpen ? 'down' : 'right'}-s-line tw-text-[#607B96] tw-text-[20px]`}></i><i class="ri-folder-6-fill tw-text-green-500"></i> certificate</li>
                 </ul>
               </div>
@@ -84,7 +85,7 @@ function About() {
           </div>
           <li className='tw-ml-8 separator2'></li>
         </div>
-        <div className="about-details tw-flex tw-items-center tw-justify-center">
+        <div className="about-details tw-flex tw-items-center tw-justify-center tw-container">
           {/* <li className='tw-ml-8 separator2'></li> */}
           {currentPage==='bio' && (
          <Bio />  
@@ -94,6 +95,8 @@ function About() {
             }
           {currentPage==='education' && (
             <Education/>)}
+          {currentPage==='skills' && (
+              <Skills/>)}
         </div>
 
       </div>
