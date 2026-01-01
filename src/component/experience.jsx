@@ -3,6 +3,13 @@ import './experience.css';
 
 const experiences = [
   {
+    company: "Tezash Tech Pvt. Ltd.",
+    role: "Frontend Developer",
+    period: "2025 - Present",
+    description: "Developed and maintained scalable web applications using Next.js, and REST APIs. Collaborated with backend teams and delivered features Health related platforms.",
+    skills: ["React", "Next.js", "Tailwind CSS", "Bootstrap", "Git"],
+  },
+  {
     company: "LennoByte Pvt. Ltd.",
     role: "Frontend Developer",
     period: "2022 - 2024",
@@ -53,17 +60,22 @@ const Experience = () => {
             <br />
             <span className="line-number">2</span> <span className="keyword">const </span>
             <span className="variable">experience</span> = [<br />
-            <span className="line-number">3</span>   {'{'} <span className="property">company</span>: <span className="string">'LennoByte Pvt. Ltd.'</span>,<br />
+            <span className="line-number">3</span>   {'{'} <span className="property">company</span>: <span className="string">'Tezash Tech Pvt. Ltd.'</span>,<br />
             <span className="line-number">4</span>     <span className="property">role</span>: <span className="string">'Frontend Developer'</span>,<br />
-            <span className="line-number">5</span>     <span className="property">period</span>: <span className="string">'2022 - 2024'</span>,<br />
-            <span className="line-number">6</span>     <span className="property">skills</span>: [<span className="string">'React'</span>, <span className="string">'Tailwind CSS'</span>, <span className="string">'Git'</span>]<br />
+            <span className="line-number">5</span>     <span className="property">period</span>: <span className="string">'2025 - Present'</span>,<br />
+            <span className="line-number">6</span>     <span className="property">skills</span>: [<span className="string">'React'</span>, <span className="string">'Next.js'</span>, <span className="string">'Bootstrap'</span>]<br />
             <span className="line-number">7</span>   {'},'}<br />
-            <span className="line-number">8</span>   {'{'} <span className="property">company</span>: <span className="string">'Freelance'</span>,<br />
-            <span className="line-number">9</span>     <span className="property">role</span>: <span className="string">'Web Developer'</span>,<br />
-            <span className="line-number">10</span>     <span className="property">period</span>: <span className="string">'2021 - 2022'</span>,<br />
-            <span className="line-number">11</span>     <span className="property">skills</span>: [ <span className="string">'Firebase'</span>, <span className="string">'JavaScript'</span>, <span className="string">'CSS'</span>]<br />
-            <span className="line-number">12</span>   {'}'}<br />
-            <span className="line-number">13</span> ]<br />
+            <span className="line-number">8</span>   {'{'} <span className="property">company</span>: <span className="string">'LennoByte Pvt. Ltd.'</span>,<br />
+            <span className="line-number">9</span>     <span className="property">role</span>: <span className="string">'Frontend Developer'</span>,<br />
+            <span className="line-number">10</span>     <span className="property">period</span>: <span className="string">'2022 - 2024'</span>,<br />
+            <span className="line-number">11</span>     <span className="property">skills</span>: [<span className="string">'React'</span>, <span className="string">'Tailwind CSS'</span>, <span className="string">'Git'</span>]<br />
+            <span className="line-number">12</span>   {'},'}<br />
+            <span className="line-number">13</span>   {'{'} <span className="property">company</span>: <span className="string">'Freelance'</span>,<br />
+            <span className="line-number">14</span>     <span className="property">role</span>: <span className="string">'Web Developer'</span>,<br />
+            <span className="line-number">15</span>     <span className="property">period</span>: <span className="string">'2021 - 2022'</span>,<br />
+            <span className="line-number">16</span>     <span className="property">skills</span>: [ <span className="string">'Firebase'</span>, <span className="string">'JavaScript'</span>, <span className="string">'CSS'</span>]<br />
+            <span className="line-number">17</span>   {'}'}<br />
+            <span className="line-number">18</span> ]<br />
           </code>
         </pre>
       </div>
