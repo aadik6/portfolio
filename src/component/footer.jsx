@@ -21,7 +21,7 @@ function Footer() {
                             <li className='tw-mx-2 separator'></li>
                             <li><a href='https://www.instagram.com/iamyouraadi/'><i class="ri-instagram-fill footer-icon"></i></a></li>
                             <li className='tw-mx-2 separator'></li>
-                            <li><i class="ri-linkedin-box-fill  footer-icon"></i></li>
+                            <li><a href='https://www.linkedin.com/in/aadarsh-kushwaha-09a9451b4/'><i class="ri-linkedin-box-fill  footer-icon"></i></a></li>
                             <li className='tw-mx-2 separator'></li>
                         </div>
                     </ul>
