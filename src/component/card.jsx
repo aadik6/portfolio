@@ -8,7 +8,7 @@ function Card({ img, icon, para, gitlink, hostedLink }) {
                     <div className="tw-card tw-bg-[#1e293b] tw-rounded-[8px] tw-shadow-lg tw-overflow-hidden tw-max-w-[300px] tw-h-[370px] tw-border tw-border-transparent hover:tw-border-[#43D9AD] tw-transition tw-duration-300">
                         {/* Image Section */}
                         <div className="tw-relative">
-                            <img src={img} alt="Project" className="tw-w-full tw-h-40 tw-object-cover" />
+                            <img src={img} alt="Project_image" className="tw-w-full tw-h-40 tw-object-cover" />
                             {icon && (
                                 <i
                                     className={`${icon} tw-absolute tw-top-3 tw-right-3 tw-bg-[#0ea5e9] tw-rounded-md tw-text-black tw-p-1`}
