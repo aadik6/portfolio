@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./about.css";
 import "remixicon/fonts/remixicon.css";
+import "../component/header.css";
 import MobileFooter from "../component/mobileFooter";
 import Bio from "../component/bio";
 import Interest from "../component/interest";
@@ -25,6 +26,14 @@ function About() {
   const [isMobbileProfessionalOpen, setIsMobileProfessionalOpen] =
     useState(false);
   const [isMobileHobbiesOpen, setIsMobileHobbiesOpen] = useState(false);
+
+  // Helper function to scroll to section
+  const scrollToSection = (sectionId) => {
+    setTimeout(() => {
+      const element = document.getElementById(sectionId);
+      element?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 100);
+  };
 
   return (
     <>
@@ -285,7 +294,7 @@ function About() {
         </div>
       </div>
       <div className="mobile">
-        <div className="top-about tw-sticky tw-top-0">
+        <div className="top-about tw-sticky tw-top-0 tw-z-10">
           <p className="tw-mt-3 tw-ml-5 tw-text-white">_about-me</p>
           <div className="mobile-personal-info tw-mt-3">
             <span
@@ -305,7 +314,10 @@ function About() {
               <ul className="tw-ml-5">
                 <li
                   className="tw-text-white"
-                  onClick={() => setIsBioOpen(!isBioOpen)}
+                  onClick={() => {
+                    setIsBioOpen(!isBioOpen);
+                    if (!isBioOpen) scrollToSection("bio");
+                  }}
                 >
                   <i
                     className={`ri-arrow-${
@@ -327,6 +339,7 @@ function About() {
                   }`}
                   onClick={() => {
                     setIsInterestOpen(!isInterestOpen);
+                    if (!isInterestOpen) scrollToSection("mobile-interest");
                   }}
                 >
                   <i
@@ -350,6 +363,7 @@ function About() {
                   }`}
                   onClick={() => {
                     setEducationOpen(!isEducationOpen);
+                    if (!isEducationOpen) scrollToSection("mobile-education");
                   }}
                 >
                   <i
@@ -399,6 +413,7 @@ function About() {
                   }`}
                   onClick={() => {
                     setIsExperienceOpen(!isExperienceOpen);
+                    if (!isExperienceOpen) scrollToSection("mobile-experience");
                   }}
                 >
                   <i
@@ -412,6 +427,7 @@ function About() {
                   className={`tw-text-${isSkillOpen ? "white" : "[#607B96]"}`}
                   onClick={() => {
                     setIsSkillOpen(!isSkillOpen);
+                    if (!isSkillOpen) scrollToSection("mobile-skillss");
                   }}
                 >
                   <i
@@ -427,6 +443,7 @@ function About() {
                   }`}
                   onClick={() => {
                     setIsCertificateOpen(!isCertificateOpen);
+                    if (!isCertificateOpen) scrollToSection("mobile-certificate");
                   }}
                 >
                   <i
@@ -459,6 +476,7 @@ function About() {
                   className={`tw-text-${isMusicOpen ? "white" : "[#607B96]"}`}
                   onClick={() => {
                     setIsMUsicOpen(!isMusicOpen);
+                    if (!isMusicOpen) scrollToSection("mobile-music");
                   }}
                 >
                   <i
@@ -472,6 +490,7 @@ function About() {
                   className={`tw-text-${isBookOpen ? "white" : "[#607B96]"}`}
                   onClick={() => {
                     setIsBookOpen(!isBookOpen);
+                    if (!isBookOpen) scrollToSection("mobile-book");
                   }}
                 >
                   <i
@@ -485,6 +504,7 @@ function About() {
                   className={`tw-text-${isGamingOpen ? "white" : "[#607B96]"}`}
                   onClick={() => {
                     setIsGamingOpen(!isGamingOpen);
+                    if (!isGamingOpen) scrollToSection("mobile-gaming");
                   }}
                 >
                   <i
@@ -504,17 +524,7 @@ function About() {
               <span className="tw-text-white">// personal-info</span>{" "}
               <span className="tw-text-[#607B96]">/ bio</span>
             </p>
-            <span className="tw-text-[#607B96]">
-              I am a frontend developer with 1.5 years of experience working on
-              React-based dynamic projects. I started my career creating static
-              websites, eventually transitioning to modern web applications with
-              advanced frameworks. I am passionate about building scalable,
-              responsive, and user-friendly interfaces. With skills in React,
-              JavaScript, and Mongoose, I continuously strive to improve and
-              stay updated with the latest technologies. Currently, I am
-              applying for full-time positions and exploring opportunities to
-              further my career in web and mobile development.
-            </span>
+            <Bio />
           </div>
           {isInterestOpen && (
             <div id="mobile-interest">
@@ -522,6 +532,7 @@ function About() {
                 <span className="tw-text-white">// personal-info</span>{" "}
                 <span className="tw-text-[#607B96]">/ interest</span>
               </p>
+              <Interest />
             </div>
           )}
           {isEducationOpen && (
@@ -530,6 +541,7 @@ function About() {
                 <span className="tw-text-white">// personal-info</span>{" "}
                 <span className="tw-text-[#607B96]">/ education</span>
               </p>
+              <Education />
             </div>
           )}
           {isExperienceOpen && (
@@ -538,6 +550,7 @@ function About() {
                 <span className="tw-text-white">// professional-info</span>{" "}
                 <span className="tw-text-[#607B96]">/ experience</span>
               </p>
+              <Experience />
             </div>
           )}
           {isSkillOpen && (
@@ -546,6 +559,7 @@ function About() {
                 <span className="tw-text-white">// professional-info</span>{" "}
                 <span className="tw-text-[#607B96]">/ skills</span>
               </p>
+              <Skills />
             </div>
           )}
           {isCertificateOpen && (
