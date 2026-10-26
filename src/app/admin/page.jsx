@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import {
   fetchProjects,
   addProjectToDb,
@@ -8,13 +8,24 @@ import {
   deleteProjectFromDb,
   seedInitialProjectsToFirestore,
 } from '../../lib/projectService';
-import { getFirebaseDb } from '../../lib/firebase';
+import { getFirebaseDb, getFirebaseAuth } from '../../lib/firebase';
+import {
+  signInWithPopup,
+  GoogleAuthProvider,
+  signOut as firebaseSignOut,
+  onAuthStateChanged,
+} from 'firebase/auth';
 import Link from 'next/link';
+
+// Strictly allowed administrator email
+const ADMIN_EMAIL = 'aadarshkumarman@gmail.com';
+const INACTIVITY_TIMEOUT_MS = 30 * 60 * 1000; // 30 minutes
 
 export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [passkeyInput, setPasskeyInput] = useState('');
+  const [adminUser, setAdminUser] = useState(null);
   const [authError, setAuthError] = useState('');
+  const [authLoading, setAuthLoading] = useState(false);
 
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -24,6 +35,7 @@ export default function AdminPage() {
   // Form state
   const [isEditing, setIsEditing] = useState(false);
   const [editingId, setEditingId] = useState(null);
+  const [originalOrder, setOriginalOrder] = useState(null);
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -36,18 +48,59 @@ export default function AdminPage() {
   });
 
   const fileInputRef = useRef(null);
-  const correctPasskey =
-    process.env.NEXT_PUBLIC_ADMIN_PASSKEY || 'aadi2026';
+  const inactivityTimerRef = useRef(null);
 
-  // Check existing session
+  // Listen to Firebase Auth state
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const stored = sessionStorage.getItem('portfolio_admin_auth');
-      if (stored === 'true') {
-        setIsAuthenticated(true);
+    const auth = getFirebaseAuth();
+    if (!auth) return;
+
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const userEmail = (user.email || '').toLowerCase().trim();
+        if (userEmail === ADMIN_EMAIL) {
+          setIsAuthenticated(true);
+          setAdminUser({ email: user.email, name: user.displayName, photoURL: user.photoURL });
+          sessionStorage.setItem('portfolio_admin_auth', 'true');
+          setAuthError('');
+        } else {
+          firebaseSignOut(auth);
+          setIsAuthenticated(false);
+          setAdminUser(null);
+          sessionStorage.removeItem('portfolio_admin_auth');
+          setAuthError(`Access denied: ${user.email} is not authorized. Only ${ADMIN_EMAIL} has access.`);
+        }
+      } else {
+        setIsAuthenticated(false);
+        setAdminUser(null);
+        sessionStorage.removeItem('portfolio_admin_auth');
       }
-    }
+    });
+
+    return () => unsubscribe();
   }, []);
+
+  // Inactivity auto-logout (30 mins)
+  const resetInactivityTimer = useCallback(() => {
+    if (inactivityTimerRef.current) clearTimeout(inactivityTimerRef.current);
+    if (isAuthenticated) {
+      inactivityTimerRef.current = setTimeout(() => {
+        handleLogout();
+        alert('Admin session expired due to 30 minutes of inactivity.');
+      }, INACTIVITY_TIMEOUT_MS);
+    }
+  }, [isAuthenticated]);
+
+  useEffect(() => {
+    if (!isAuthenticated) return;
+    const events = ['mousedown', 'keydown', 'scroll', 'touchstart'];
+    events.forEach((evt) => window.addEventListener(evt, resetInactivityTimer));
+    resetInactivityTimer();
+    return () => {
+      events.forEach((evt) => window.removeEventListener(evt, resetInactivityTimer));
+      if (inactivityTimerRef.current) clearTimeout(inactivityTimerRef.current);
+    };
+  }, [isAuthenticated, resetInactivityTimer]);
 
   // Load projects on authenticate
   useEffect(() => {
@@ -75,21 +128,62 @@ export default function AdminPage() {
     }, 4500);
   };
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    if (passkeyInput === correctPasskey) {
-      setIsAuthenticated(true);
-      sessionStorage.setItem('portfolio_admin_auth', 'true');
-      setAuthError('');
-    } else {
-      setAuthError('Invalid passkey. Access denied.');
+  // Google Sign-in Handler (Restricted strictly to aadarshkumarman@gmail.com)
+  const handleGoogleSignIn = async () => {
+    const auth = getFirebaseAuth();
+    if (!auth) {
+      setAuthError('Firebase Auth is not initialized. Please verify NEXT_PUBLIC_FIREBASE_API_KEY in .env.local.');
+      return;
+    }
+
+    setAuthLoading(true);
+    setAuthError('');
+    try {
+      const provider = new GoogleAuthProvider();
+      provider.setCustomParameters({ prompt: 'select_account' });
+      const result = await signInWithPopup(auth, provider);
+      const userEmail = (result.user.email || '').toLowerCase().trim();
+
+      if (userEmail === ADMIN_EMAIL) {
+        setIsAuthenticated(true);
+        setAdminUser({
+          email: result.user.email,
+          name: result.user.displayName,
+          photoURL: result.user.photoURL,
+        });
+        sessionStorage.setItem('portfolio_admin_auth', 'true');
+        setAuthError('');
+      } else {
+        await firebaseSignOut(auth);
+        setIsAuthenticated(false);
+        setAdminUser(null);
+        sessionStorage.removeItem('portfolio_admin_auth');
+        setAuthError(`Access denied: ${userEmail} is not authorized. Only ${ADMIN_EMAIL} can access this admin panel.`);
+      }
+    } catch (err) {
+      if (err.code === 'auth/unauthorized-domain') {
+        const currentDomain = typeof window !== 'undefined' ? window.location.hostname : 'your domain';
+        setAuthError(`Domain "${currentDomain}" is not authorized in Firebase. Please add "${currentDomain}" to Firebase Console > Authentication > Settings > Authorized domains.`);
+      } else if (err.code !== 'auth/popup-closed-by-user') {
+        setAuthError(err.message || 'Google authentication failed.');
+      }
+    } finally {
+      setAuthLoading(false);
     }
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    const auth = getFirebaseAuth();
+    if (auth) {
+      try {
+        await firebaseSignOut(auth);
+      } catch (e) {
+        console.warn('Sign out error:', e);
+      }
+    }
     setIsAuthenticated(false);
+    setAdminUser(null);
     sessionStorage.removeItem('portfolio_admin_auth');
-    setPasskeyInput('');
   };
 
   const handleFormChange = (e) => {
@@ -176,11 +270,11 @@ export default function AdminPage() {
     setLoading(true);
     try {
       if (isEditing && editingId) {
-        await updateProjectInDb(editingId, formData);
-        showMessage('Project updated successfully with image link saved!');
+        await updateProjectInDb(editingId, formData, originalOrder);
+        showMessage(`Project updated at order #${formData.order}! Any subsequent projects were rearranged (+1).`);
       } else {
         await addProjectToDb(formData);
-        showMessage('New project added with image link saved!');
+        showMessage(`New project added at order #${formData.order}! Previous #${formData.order} and all subsequent projects were rearranged (+1).`);
       }
       resetForm();
       await loadProjects();
@@ -194,6 +288,7 @@ export default function AdminPage() {
   const handleEdit = (project) => {
     setIsEditing(true);
     setEditingId(project.id);
+    setOriginalOrder(project.order || 1);
     setFormData({
       title: project.title || '',
       description: project.description || '',
@@ -227,6 +322,7 @@ export default function AdminPage() {
   const resetForm = () => {
     setIsEditing(false);
     setEditingId(null);
+    setOriginalOrder(null);
     setFormData({
       title: '',
       description: '',
@@ -256,48 +352,53 @@ export default function AdminPage() {
 
   const isDbConfigured = Boolean(getFirebaseDb());
 
-  // Login Gate
+  // Login Gate (Google Sign-In Only)
   if (!isAuthenticated) {
     return (
       <div className="tw-min-h-[80vh] tw-flex tw-items-center tw-justify-center tw-p-4 tw-font-mono">
-        <div className="tw-bg-[#011627] tw-border tw-border-[#1E2D3D] tw-rounded-lg tw-p-8 tw-max-w-md tw-w-full tw-shadow-2xl">
-          <div className="tw-flex tw-items-center tw-gap-2 tw-mb-4">
-            <i className="ri-lock-line tw-text-[#43D9AD] tw-text-2xl"></i>
-            <h1 className="tw-text-white tw-text-xl tw-font-bold">_admin-login</h1>
+        <div className="tw-bg-[#011627] tw-border tw-border-[#1E2D3D] tw-rounded-lg tw-p-6 md:tw-p-8 tw-max-w-md tw-w-full tw-shadow-2xl">
+          <div className="tw-flex tw-items-center tw-justify-between tw-mb-4">
+            <div className="tw-flex tw-items-center tw-gap-2">
+              <i className="ri-shield-keyhole-line tw-text-[#43D9AD] tw-text-2xl"></i>
+              <h1 className="tw-text-white tw-text-xl tw-font-bold">_admin-login</h1>
+            </div>
+            <span className="tw-text-[10px] tw-text-[#43D9AD] tw-border tw-border-[#43D9AD]/30 tw-px-2 tw-py-0.5 tw-rounded tw-bg-[#43D9AD]/10">
+              GOOGLE AUTH
+            </span>
           </div>
-          <p className="tw-text-[#607B96] tw-text-xs tw-mb-6">
-            // Enter passkey to manage portfolio projects dynamically
+
+          <p className="tw-text-[#607B96] tw-text-xs tw-mb-5">
+            // Administrator access is strictly restricted to verified owner
           </p>
 
-          <form onSubmit={handleLogin} className="tw-space-y-4">
-            <div>
-              <label className="tw-block tw-text-[#607B96] tw-text-xs tw-mb-2">
-                _passkey:
-              </label>
-              <input
-                type="password"
-                value={passkeyInput}
-                onChange={(e) => setPasskeyInput(e.target.value)}
-                placeholder="Enter admin passkey..."
-                className="ai-chat-input tw-w-full"
-                autoFocus
-              />
+          <div className="tw-space-y-5">
+            <div className="tw-bg-[#011221] tw-border tw-border-[#1E2D3D] tw-p-3.5 tw-rounded tw-text-xs">
+              <p className="tw-text-[#607B96] tw-mb-1">// Authorized administrator account:</p>
+              <p className="tw-text-white tw-font-semibold tw-flex tw-items-center tw-gap-1.5 font-mono">
+                <i className="ri-shield-check-line tw-text-[#43D9AD] tw-text-base"></i> {ADMIN_EMAIL}
+              </p>
             </div>
 
-            {authError && (
-              <p className="tw-text-[#E99287] tw-text-xs">// {authError}</p>
-            )}
-
             <button
-              type="submit"
-              className="tw-w-full tw-bg-[#1C2B3A] tw-border tw-border-[#1E2D3D] hover:tw-border-[#43D9AD] hover:tw-text-[#43D9AD] tw-text-white tw-py-2.5 tw-rounded tw-text-sm tw-transition-colors"
+              type="button"
+              onClick={handleGoogleSignIn}
+              disabled={authLoading}
+              className="tw-w-full tw-bg-[#1C2B3A] tw-border tw-border-[#1E2D3D] hover:tw-border-[#43D9AD] hover:tw-text-[#43D9AD] tw-text-white tw-py-3.5 tw-rounded tw-text-xs tw-flex tw-items-center tw-justify-center tw-gap-2.5 tw-transition tw-font-semibold disabled:tw-opacity-50"
             >
-              authenticate()
+              <i className={authLoading ? "ri-loader-4-line tw-animate-spin tw-text-lg" : "ri-google-fill tw-text-lg tw-text-[#43D9AD]"}></i>
+              <span>{authLoading ? "verifying_identity()..." : "Sign in with Google"}</span>
             </button>
-          </form>
+          </div>
+
+          {/* Error Message */}
+          {authError && (
+            <div className="tw-mt-4 tw-p-3 tw-rounded tw-border tw-border-[#E99287]/40 tw-bg-[#E99287]/10 tw-text-[#E99287] tw-text-xs tw-break-words">
+              // {authError}
+            </div>
+          )}
 
           <div className="tw-mt-6 tw-pt-4 tw-border-t tw-border-[#1E2D3D] tw-flex tw-justify-between tw-text-[11px] tw-text-[#607B96]">
-        
+            <span>// Google OAuth 2.0</span>
             <Link href="/" className="hover:tw-text-[#43D9AD]">
               &larr; return home
             </Link>
@@ -315,8 +416,13 @@ export default function AdminPage() {
           <h1 className="tw-text-white tw-text-2xl tw-font-bold tw-flex tw-items-center tw-gap-2">
             <i className="ri-dashboard-fill tw-text-[#43D9AD]"></i> _projects-manager
           </h1>
-          <p className="tw-text-[#607B96] tw-text-xs tw-mt-1">
-            // Firestore status: {isDbConfigured ? <span className="tw-text-[#43D9AD]">● connected</span> : <span className="tw-text-[#FEA55F]">▲ local fallback active (set NEXT_PUBLIC_FIREBASE_API_KEY in .env.local)</span>}
+          <p className="tw-text-[#607B96] tw-text-xs tw-mt-1 tw-flex tw-items-center tw-gap-2">
+            <span>// Firestore: {isDbConfigured ? <span className="tw-text-[#43D9AD]">● connected</span> : <span className="tw-text-[#FEA55F]">▲ local fallback</span>}</span>
+            {adminUser?.email && (
+              <span className="tw-text-[#43D9AD] tw-border-l tw-border-[#1E2D3D] tw-pl-2">
+                auth: {adminUser.email}
+              </span>
+            )}
           </p>
         </div>
 
@@ -330,9 +436,9 @@ export default function AdminPage() {
           <button
             type="button"
             onClick={handleLogout}
-            className="tw-bg-[#1C2B3A] tw-border tw-border-[#1E2D3D] hover:tw-text-[#E99287] tw-text-[#607B96] tw-px-3.5 tw-py-1.5 tw-rounded tw-text-xs tw-transition"
+            className="tw-bg-[#1C2B3A] tw-border tw-border-[#1E2D3D] hover:tw-border-[#E99287] hover:tw-text-[#E99287] tw-text-[#607B96] tw-px-3.5 tw-py-1.5 tw-rounded tw-text-xs tw-transition tw-flex tw-items-center tw-gap-1.5"
           >
-            logout()
+            <i className="ri-logout-box-r-line"></i> logout()
           </button>
         </div>
       </div>
@@ -529,6 +635,10 @@ export default function AdminPage() {
                   onChange={handleFormChange}
                   className="ai-chat-input tw-w-full"
                 />
+                <p className="tw-text-[11px] tw-text-[#43D9AD] tw-mt-1.5 tw-flex tw-items-center tw-gap-1">
+                  <i className="ri-information-line"></i>
+                  <span>Setting an order (e.g. 4) will automatically rearrange the previous #4 and all following projects by adding 1 (+1).</span>
+                </p>
               </div>
 
               <button

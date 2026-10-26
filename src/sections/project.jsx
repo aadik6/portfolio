@@ -9,7 +9,7 @@ import MobileFooter from "../component/mobileFooter";
 
 function Project() {
   const [projectsList, setProjectsList] = useState(initialProjects);
-  const [currentFile, setCurrentFile] = useState("personal");
+  const [currentFile, setCurrentFile] = useState("all");
   const [selectedTech, setSelectedTech] = useState([]);
   const [mobileProjectType, setMobileProjectType] = useState(false);
   const [mobileProjectTech, setMobileProjectTech] = useState(false);
@@ -60,13 +60,15 @@ function Project() {
   // If none found, fallback to defaults
   const displayTechs = availableTechs.length > 0 ? availableTechs : ["react", "html", "css", "php"];
 
-  const filteredProjects = projectsList.filter((project) => {
-    const matchesType = project.type === currentFile;
-    const projectTech = (project.tech || "").toLowerCase();
-    const matchesTech =
-      selectedTech.length === 0 || selectedTech.includes(projectTech);
-    return matchesType && matchesTech;
-  });
+  const filteredProjects = [...projectsList]
+    .sort((a, b) => (Number(a.order) || 99) - (Number(b.order) || 99))
+    .filter((project) => {
+      const matchesType = currentFile === "all" || project.type === currentFile;
+      const projectTech = (project.tech || "").toLowerCase();
+      const matchesTech =
+        selectedTech.length === 0 || selectedTech.includes(projectTech);
+      return matchesType && matchesTech;
+    });
 
   const handleTechSelection = (tech) => {
     setSelectedTech((prev) =>
@@ -82,6 +84,17 @@ function Project() {
         <div className="about-info tw-flex">
           <ul className="tw-flex tw-w-20">
             <div className="icons tw-ml-2">
+              <li
+                className="tw-ml-2 tw-my-2 tw-cursor-pointer"
+                title="All Projects"
+                onClick={() => setCurrentFile("all")}
+              >
+                <i
+                  className={`ri-apps-2-line tw-text-${
+                    currentFile === "all" ? "white" : "[#607B96]"
+                  }`}
+                ></i>
+              </li>
               <li
                 className="tw-ml-2 tw-my-2 tw-cursor-pointer"
                 title="Personal Projects"
@@ -227,9 +240,17 @@ function Project() {
               category ({currentFile})
             </span>
             {mobileProjectType && (
-              <ul className="tw-flex tw-ml-5 tw-my-2">
+              <ul className="tw-flex tw-ml-5 tw-my-2 tw-flex-wrap tw-gap-2">
                 <li
-                  className={`tw-ml-2 tw-my-2 tw-cursor-pointer tw-text-${
+                  className={`tw-cursor-pointer tw-text-${
+                    currentFile === "all" ? "white" : "[#607B96]"
+                  }`}
+                  onClick={() => setCurrentFile("all")}
+                >
+                  <i className="ri-apps-2-line"></i> all
+                </li>
+                <li
+                  className={`tw-ml-3 tw-cursor-pointer tw-text-${
                     currentFile === "personal" ? "white" : "[#607B96]"
                   }`}
                   onClick={() => setCurrentFile("personal")}
@@ -242,7 +263,7 @@ function Project() {
                   personal
                 </li>
                 <li
-                  className={`tw-ml-4 tw-my-2 tw-cursor-pointer tw-text-${
+                  className={`tw-ml-3 tw-cursor-pointer tw-text-${
                     currentFile === "professional" ? "white" : "[#607B96]"
                   }`}
                   onClick={() => setCurrentFile("professional")}

@@ -8,6 +8,7 @@ import BirgunjByte from './images/BirgunjByte.png';
 const Projects = [
     {
         id: 1,
+        order: 1,
         type:"personal",
         tech:"react",
         title: "BirgunjByte",
@@ -20,6 +21,7 @@ const Projects = [
     },
     {
         id: 2,
+        order: 2,
         type:"personal",
         tech:"react",
         title: "SkyWatch",
@@ -32,6 +34,7 @@ const Projects = [
     },
     {
         id: 3,
+        order: 3,
         type:"personal",
         tech:"react",
         title: "News Portal",
@@ -44,6 +47,7 @@ const Projects = [
     },
     {
         id: 4,
+        order: 4,
         type:"personal",
         tech:"php",
         title: "Medi Connect",
@@ -55,6 +59,7 @@ const Projects = [
     },
     {
         id: 5,
+        order: 5,
         type:'professional',
         tech:"react",
         title: "Eccomerce Admin Pannel",
@@ -66,6 +71,7 @@ const Projects = [
     },
     {
         id: 6,
+        order: 6,
         type:'professional',
         tech:"react",
         title: "News Admin Pannel",
