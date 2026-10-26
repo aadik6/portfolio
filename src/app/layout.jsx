@@ -71,16 +71,26 @@ export const metadata = {
   },
   icons: {
     icon: [
-      { url: '/yellow.png', sizes: '32x32', type: 'image/png' },
-      { url: '/fv.png', sizes: '192x192', type: 'image/png' },
+      { url: '/favicon.ico' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-48x48.png', sizes: '48x48', type: 'image/png' },
+      { url: '/android-chrome-192x192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/android-chrome-512x512.png', sizes: '512x512', type: 'image/png' },
     ],
     apple: [
-      { url: '/yellow.png', sizes: '180x180', type: 'image/png' },
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+    other: [
+      {
+        rel: 'apple-touch-icon-precomposed',
+        url: '/apple-touch-icon-precomposed.png',
+      },
     ],
   },
   manifest: '/manifest.json',
   openGraph: {
-    type: 'profile',
+    type: 'website',
     locale: 'en_US',
     url: siteUrl,
     siteName: 'Aadarsh Kushwaha Portfolio',
@@ -89,9 +99,11 @@ export const metadata = {
       'Aadarsh Kushwaha is a FullStack & Node.js Developer from Nepal with 3+ years of experience building modern, responsive web apps with React, Next.js, and NestJS.',
     images: [
       {
-        url: '/image.jpeg',
+        url: '/meta-preview.jpg',
+        secureUrl: `${siteUrl}/meta-preview.jpg`,
         width: 1200,
         height: 630,
+        type: 'image/jpeg',
         alt: 'Aadarsh Kushwaha - FullStack & MERN Developer',
       },
     ],
@@ -101,7 +113,7 @@ export const metadata = {
     title: 'Aadarsh Kushwaha | FullStack & MERN Developer',
     description:
       'FullStack & Node.js developer from Nepal with 3+ years of experience building modern web applications.',
-    images: ['/image.jpeg'],
+    images: ['/meta-preview.jpg'],
   },
 };
 
@@ -124,13 +136,50 @@ const jsonLdGraph = {
       description:
         'FullStack and Node.js Developer with 3+ years of experience specializing in React, Next.js, TypeScript, NestJS, Express, MongoDB, and PostgreSQL.',
       url: siteUrl,
-      image: `${siteUrl}/image.jpeg`,
+      image: `${siteUrl}/meta-preview.jpg`,
       email: 'mailto:aadarshkumarman@gmail.com',
       telephone: '+977-9806814329',
       address: {
         '@type': 'PostalAddress',
         addressLocality: 'Birgunj',
+        addressRegion: 'Madhesh Province',
         addressCountry: 'Nepal',
+      },
+      nationality: 'Nepali',
+      knowsLanguage: ['English', 'Nepali', 'Hindi'],
+      hasOccupation: {
+        '@type': 'Occupation',
+        name: 'FullStack Software Engineer',
+        occupationalCategory: '15-1252.00',
+        skills:
+          'React, Next.js, TypeScript, Node.js, NestJS, Express.js, PostgreSQL, MongoDB, Tailwind CSS, REST APIs, Zustand, TanStack Query',
+      },
+      offers: [
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'FullStack Web Application Development',
+            description:
+              'End-to-end web engineering from responsive React & Next.js user interfaces to scalable NestJS & Node.js backend architectures.',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'RESTful API & Database Architecture',
+            description:
+              'Designing secure, high-performance APIs and database models using PostgreSQL, MongoDB, and modern Node.js/NestJS frameworks.',
+          },
+        },
+      ],
+      contactPoint: {
+        '@type': 'ContactPoint',
+        email: 'mailto:aadarshkumarman@gmail.com',
+        telephone: '+977-9806814329',
+        contactType: 'professional inquiries',
+        availableLanguage: ['English', 'Nepali', 'Hindi'],
       },
       sameAs: [
         'https://github.com/aadik6',
@@ -154,6 +203,7 @@ const jsonLdGraph = {
         'RESTful APIs',
         'Zustand',
         'TanStack Query',
+        'Firebase',
       ],
     },
     {
@@ -186,6 +236,7 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="alternate" type="text/markdown" href="/llms.txt" title="LLM Context" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdGraph) }}

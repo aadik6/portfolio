@@ -31,6 +31,7 @@ export default function AdminPage() {
   const [loading, setLoading] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [statusMessage, setStatusMessage] = useState({ text: '', type: '' });
+  const [mobileTab, setMobileTab] = useState('list'); // 'list' | 'form'
 
   // Form state
   const [isEditing, setIsEditing] = useState(false);
@@ -277,6 +278,7 @@ export default function AdminPage() {
         showMessage(`New project added at order #${formData.order}! Previous #${formData.order} and all subsequent projects were rearranged (+1).`);
       }
       resetForm();
+      setMobileTab('list');
       await loadProjects();
     } catch (err) {
       showMessage(`Operation failed: ${err.message}`, 'error');
@@ -299,6 +301,7 @@ export default function AdminPage() {
       hostedLink: project.hostedLink || '',
       order: project.order || 1,
     });
+    setMobileTab('form');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -355,12 +358,12 @@ export default function AdminPage() {
   // Login Gate (Google Sign-In Only)
   if (!isAuthenticated) {
     return (
-      <div className="tw-min-h-[80vh] tw-flex tw-items-center tw-justify-center tw-p-4 tw-font-mono">
-        <div className="tw-bg-[#011627] tw-border tw-border-[#1E2D3D] tw-rounded-lg tw-p-6 md:tw-p-8 tw-max-w-md tw-w-full tw-shadow-2xl">
+      <div className="tw-min-h-[80vh] tw-flex tw-items-center tw-justify-center tw-p-3 sm:tw-p-4 tw-font-mono">
+        <div className="tw-bg-[#011627] tw-border tw-border-[#1E2D3D] tw-rounded-lg tw-p-5 sm:tw-p-8 tw-max-w-md tw-w-full tw-shadow-2xl">
           <div className="tw-flex tw-items-center tw-justify-between tw-mb-4">
             <div className="tw-flex tw-items-center tw-gap-2">
-              <i className="ri-shield-keyhole-line tw-text-[#43D9AD] tw-text-2xl"></i>
-              <h1 className="tw-text-white tw-text-xl tw-font-bold">_admin-login</h1>
+              <i className="ri-shield-keyhole-line tw-text-[#43D9AD] tw-text-xl sm:tw-text-2xl"></i>
+              <h1 className="tw-text-white tw-text-lg sm:tw-text-xl tw-font-bold">_admin-login</h1>
             </div>
             <span className="tw-text-[10px] tw-text-[#43D9AD] tw-border tw-border-[#43D9AD]/30 tw-px-2 tw-py-0.5 tw-rounded tw-bg-[#43D9AD]/10">
               GOOGLE AUTH
@@ -371,11 +374,11 @@ export default function AdminPage() {
             // Administrator access is strictly restricted to verified owner
           </p>
 
-          <div className="tw-space-y-5">
+          <div className="tw-space-y-4 sm:tw-space-y-5">
             <div className="tw-bg-[#011221] tw-border tw-border-[#1E2D3D] tw-p-3.5 tw-rounded tw-text-xs">
               <p className="tw-text-[#607B96] tw-mb-1">// Authorized administrator account:</p>
-              <p className="tw-text-white tw-font-semibold tw-flex tw-items-center tw-gap-1.5 font-mono">
-                <i className="ri-shield-check-line tw-text-[#43D9AD] tw-text-base"></i> {ADMIN_EMAIL}
+              <p className="tw-text-white tw-font-semibold tw-flex tw-items-center tw-gap-1.5 font-mono tw-break-all">
+                <i className="ri-shield-check-line tw-text-[#43D9AD] tw-text-base tw-flex-shrink-0"></i> {ADMIN_EMAIL}
               </p>
             </div>
 
@@ -383,7 +386,7 @@ export default function AdminPage() {
               type="button"
               onClick={handleGoogleSignIn}
               disabled={authLoading}
-              className="tw-w-full tw-bg-[#1C2B3A] tw-border tw-border-[#1E2D3D] hover:tw-border-[#43D9AD] hover:tw-text-[#43D9AD] tw-text-white tw-py-3.5 tw-rounded tw-text-xs tw-flex tw-items-center tw-justify-center tw-gap-2.5 tw-transition tw-font-semibold disabled:tw-opacity-50"
+              className="tw-w-full tw-bg-[#1C2B3A] tw-border tw-border-[#1E2D3D] hover:tw-border-[#43D9AD] hover:tw-text-[#43D9AD] tw-text-white tw-py-3.5 tw-rounded-md tw-text-xs tw-flex tw-items-center tw-justify-center tw-gap-2.5 tw-transition tw-font-semibold disabled:tw-opacity-50"
             >
               <i className={authLoading ? "ri-loader-4-line tw-animate-spin tw-text-lg" : "ri-google-fill tw-text-lg tw-text-[#43D9AD]"}></i>
               <span>{authLoading ? "verifying_identity()..." : "Sign in with Google"}</span>
@@ -399,7 +402,7 @@ export default function AdminPage() {
 
           <div className="tw-mt-6 tw-pt-4 tw-border-t tw-border-[#1E2D3D] tw-flex tw-justify-between tw-text-[11px] tw-text-[#607B96]">
             <span>// Google OAuth 2.0</span>
-            <Link href="/" className="hover:tw-text-[#43D9AD]">
+            <Link href="/" className="hover:tw-text-[#43D9AD] tw-py-1">
               &larr; return home
             </Link>
           </div>
@@ -409,34 +412,34 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="tw-min-h-[85vh] tw-p-4 md:tw-p-8 tw-max-w-6xl tw-mx-auto tw-font-mono">
+    <div className="tw-min-h-[85vh] tw-p-3 sm:tw-p-6 md:tw-p-8 tw-max-w-6xl tw-mx-auto tw-font-mono">
       {/* Top Header */}
-      <div className="tw-flex tw-flex-wrap tw-items-center tw-justify-between tw-pb-4 tw-border-b tw-border-[#1E2D3D] tw-mb-8 tw-gap-4">
+      <div className="tw-flex tw-flex-col sm:tw-flex-row sm:tw-items-center tw-justify-between tw-pb-4 tw-border-b tw-border-[#1E2D3D] tw-mb-6 sm:tw-mb-8 tw-gap-4">
         <div>
-          <h1 className="tw-text-white tw-text-2xl tw-font-bold tw-flex tw-items-center tw-gap-2">
+          <h1 className="tw-text-white tw-text-xl sm:tw-text-2xl tw-font-bold tw-flex tw-items-center tw-gap-2">
             <i className="ri-dashboard-fill tw-text-[#43D9AD]"></i> _projects-manager
           </h1>
-          <p className="tw-text-[#607B96] tw-text-xs tw-mt-1 tw-flex tw-items-center tw-gap-2">
+          <div className="tw-text-[#607B96] tw-text-xs tw-mt-1 tw-flex tw-flex-wrap tw-items-center tw-gap-x-2 tw-gap-y-1">
             <span>// Firestore: {isDbConfigured ? <span className="tw-text-[#43D9AD]">● connected</span> : <span className="tw-text-[#FEA55F]">▲ local fallback</span>}</span>
             {adminUser?.email && (
-              <span className="tw-text-[#43D9AD] tw-border-l tw-border-[#1E2D3D] tw-pl-2">
+              <span className="tw-text-[#43D9AD] sm:tw-border-l sm:tw-border-[#1E2D3D] sm:tw-pl-2 tw-break-all">
                 auth: {adminUser.email}
               </span>
             )}
-          </p>
+          </div>
         </div>
 
-        <div className="tw-flex tw-items-center tw-gap-3">
+        <div className="tw-flex tw-items-center tw-gap-2.5 sm:tw-gap-3">
           <Link
             href="/projects"
-            className="tw-bg-[#011221] tw-border tw-border-[#1E2D3D] hover:tw-border-[#43D9AD] tw-text-[#607B96] hover:tw-text-white tw-px-3.5 tw-py-1.5 tw-rounded tw-text-xs tw-transition"
+            className="tw-flex-1 sm:tw-flex-initial tw-text-center tw-bg-[#011221] tw-border tw-border-[#1E2D3D] hover:tw-border-[#43D9AD] tw-text-[#607B96] hover:tw-text-white tw-px-3.5 tw-py-2 sm:tw-py-1.5 tw-rounded tw-text-xs tw-transition"
           >
             view /projects
           </Link>
           <button
             type="button"
             onClick={handleLogout}
-            className="tw-bg-[#1C2B3A] tw-border tw-border-[#1E2D3D] hover:tw-border-[#E99287] hover:tw-text-[#E99287] tw-text-[#607B96] tw-px-3.5 tw-py-1.5 tw-rounded tw-text-xs tw-transition tw-flex tw-items-center tw-gap-1.5"
+            className="tw-flex-1 sm:tw-flex-initial tw-bg-[#1C2B3A] tw-border tw-border-[#1E2D3D] hover:tw-border-[#E99287] hover:tw-text-[#E99287] tw-text-[#607B96] tw-px-3.5 tw-py-2 sm:tw-py-1.5 tw-rounded tw-text-xs tw-transition tw-flex tw-items-center tw-justify-center tw-gap-1.5"
           >
             <i className="ri-logout-box-r-line"></i> logout()
           </button>
@@ -446,7 +449,7 @@ export default function AdminPage() {
       {/* Status banner */}
       {statusMessage.text && (
         <div
-          className={`tw-mb-6 tw-p-3.5 tw-rounded tw-border tw-text-xs ${
+          className={`tw-mb-6 tw-p-3 sm:tw-p-3.5 tw-rounded tw-border tw-text-xs tw-break-words ${
             statusMessage.type === 'error'
               ? 'tw-bg-[#E99287]/15 tw-border-[#E99287] tw-text-[#E99287]'
               : 'tw-bg-[#43D9AD]/15 tw-border-[#43D9AD] tw-text-[#43D9AD]'
@@ -456,17 +459,48 @@ export default function AdminPage() {
         </div>
       )}
 
-      <div className="tw-grid tw-grid-cols-1 lg:tw-grid-cols-12 tw-gap-8">
+      {/* Mobile Tab Switcher */}
+      <div className="lg:tw-hidden tw-grid tw-grid-cols-2 tw-gap-2 tw-mb-6 tw-bg-[#011221] tw-p-1.5 tw-rounded-lg tw-border tw-border-[#1E2D3D]">
+        <button
+          type="button"
+          onClick={() => setMobileTab('list')}
+          className={`tw-py-2.5 tw-px-3 tw-rounded-md tw-text-xs tw-font-semibold tw-transition tw-flex tw-items-center tw-justify-center tw-gap-1.5 ${
+            mobileTab === 'list'
+              ? 'tw-bg-[#1C2B3A] tw-text-[#43D9AD] tw-shadow-sm'
+              : 'tw-text-[#607B96] hover:tw-text-white'
+          }`}
+        >
+          <i className="ri-folder-line"></i>
+          <span>Projects ({projects.length})</span>
+        </button>
+        <button
+          type="button"
+          onClick={() => setMobileTab('form')}
+          className={`tw-py-2.5 tw-px-3 tw-rounded-md tw-text-xs tw-font-semibold tw-transition tw-flex tw-items-center tw-justify-center tw-gap-1.5 ${
+            mobileTab === 'form'
+              ? 'tw-bg-[#1C2B3A] tw-text-[#43D9AD] tw-shadow-sm'
+              : 'tw-text-[#607B96] hover:tw-text-white'
+          }`}
+        >
+          <i className={isEditing ? 'ri-edit-line' : 'ri-add-line'}></i>
+          <span>{isEditing ? 'Edit Project' : '+ New Project'}</span>
+        </button>
+      </div>
+
+      <div className="tw-grid tw-grid-cols-1 lg:tw-grid-cols-12 tw-gap-6 lg:tw-gap-8">
         {/* Project Form (Add / Edit) */}
-        <div className="lg:tw-col-span-5">
-          <div className="tw-bg-[#011627] tw-border tw-border-[#1E2D3D] tw-rounded-lg tw-p-6 tw-shadow-xl">
-            <h2 className="tw-text-white tw-text-lg tw-font-semibold tw-mb-4 tw-flex tw-items-center tw-justify-between">
+        <div className={`lg:tw-col-span-5 ${mobileTab === 'form' ? 'tw-block' : 'tw-hidden lg:tw-block'}`}>
+          <div className="tw-bg-[#011627] tw-border tw-border-[#1E2D3D] tw-rounded-lg tw-p-4 sm:tw-p-6 tw-shadow-xl">
+            <h2 className="tw-text-white tw-text-base sm:tw-text-lg tw-font-semibold tw-mb-4 tw-flex tw-items-center tw-justify-between">
               <span>{isEditing ? '// edit-project' : '// add-new-project'}</span>
               {isEditing && (
                 <button
                   type="button"
-                  onClick={resetForm}
-                  className="tw-text-xs tw-text-[#E99287] hover:tw-underline"
+                  onClick={() => {
+                    resetForm();
+                    setMobileTab('list');
+                  }}
+                  className="tw-text-xs tw-text-[#E99287] hover:tw-underline tw-py-1 tw-px-2"
                 >
                   cancel
                 </button>
@@ -475,7 +509,7 @@ export default function AdminPage() {
 
             <form onSubmit={handleSubmit} className="tw-space-y-4 tw-text-xs">
               <div>
-                <label className="tw-block tw-text-[#607B96] tw-mb-1">_title *</label>
+                <label className="tw-block tw-text-[#607B96] tw-mb-1 font-semibold">_title *</label>
                 <input
                   type="text"
                   name="title"
@@ -487,9 +521,9 @@ export default function AdminPage() {
                 />
               </div>
 
-              <div className="tw-grid tw-grid-cols-2 tw-gap-3">
+              <div className="tw-grid tw-grid-cols-1 sm:tw-grid-cols-2 tw-gap-3">
                 <div>
-                  <label className="tw-block tw-text-[#607B96] tw-mb-1">_category</label>
+                  <label className="tw-block tw-text-[#607B96] tw-mb-1 font-semibold">_category</label>
                   <select
                     name="type"
                     value={formData.type}
@@ -501,7 +535,7 @@ export default function AdminPage() {
                   </select>
                 </div>
                 <div>
-                  <label className="tw-block tw-text-[#607B96] tw-mb-1">_tech</label>
+                  <label className="tw-block tw-text-[#607B96] tw-mb-1 font-semibold">_tech</label>
                   <select
                     name="tech"
                     value={formData.tech}
@@ -521,7 +555,7 @@ export default function AdminPage() {
               </div>
 
               <div>
-                <label className="tw-block tw-text-[#607B96] tw-mb-1">_description *</label>
+                <label className="tw-block tw-text-[#607B96] tw-mb-1 font-semibold">_description *</label>
                 <textarea
                   name="description"
                   value={formData.description}
@@ -534,23 +568,23 @@ export default function AdminPage() {
               </div>
 
               {/* Upload Image to File & Save Link */}
-              <div className="tw-p-3 tw-bg-[#011221] tw-border tw-border-[#1E2D3D] tw-rounded-lg tw-space-y-2">
+              <div className="tw-p-3 sm:tw-p-3.5 tw-bg-[#011221] tw-border tw-border-[#1E2D3D] tw-rounded-lg tw-space-y-2.5">
                 <div className="tw-flex tw-items-center tw-justify-between">
                   <label className="tw-block tw-text-[#607B96] tw-font-semibold">
-                    _project_image (upload to file & link)
+                    _project_image (upload & link)
                   </label>
                   {formData.img && (
                     <button
                       type="button"
                       onClick={() => setFormData((prev) => ({ ...prev, img: '' }))}
-                      className="tw-text-[#E99287] hover:tw-underline tw-text-[10px]"
+                      className="tw-text-[#E99287] hover:tw-underline tw-text-[11px] tw-p-1"
                     >
                       clear
                     </button>
                   )}
                 </div>
 
-                <div className="tw-flex tw-items-center tw-gap-3">
+                <div className="tw-flex tw-flex-wrap tw-items-center tw-gap-2.5">
                   <input
                     ref={fileInputRef}
                     type="file"
@@ -561,7 +595,7 @@ export default function AdminPage() {
                   />
                   <label
                     htmlFor="project-image-input"
-                    className="tw-bg-[#1C2B3A] tw-border tw-border-[#1E2D3D] hover:tw-border-[#43D9AD] hover:tw-text-[#43D9AD] tw-text-white tw-px-3 tw-py-2 tw-rounded tw-cursor-pointer tw-flex tw-items-center tw-gap-1.5 tw-transition tw-text-xs"
+                    className="tw-bg-[#1C2B3A] tw-border tw-border-[#1E2D3D] hover:tw-border-[#43D9AD] hover:tw-text-[#43D9AD] tw-text-white tw-px-3.5 tw-py-2 tw-rounded-md tw-cursor-pointer tw-flex tw-items-center tw-gap-1.5 tw-transition tw-text-xs"
                   >
                     <i className={isUploading ? "ri-loader-4-line tw-animate-spin" : "ri-upload-cloud-2-line"}></i>
                     <span>{isUploading ? 'uploading file...' : 'upload image file'}</span>
@@ -577,7 +611,7 @@ export default function AdminPage() {
                     <img
                       src={formData.img}
                       alt="Project preview"
-                      className="tw-w-16 tw-h-12 tw-object-cover tw-rounded tw-border tw-border-[#1E2D3D]"
+                      className="tw-w-16 tw-h-12 tw-object-cover tw-rounded tw-border tw-border-[#1E2D3D] tw-flex-shrink-0"
                     />
                     <div className="tw-flex-1 tw-overflow-hidden">
                       <p className="tw-text-[10px] tw-text-[#43D9AD]">// saved link:</p>
@@ -603,7 +637,7 @@ export default function AdminPage() {
               </div>
 
               <div>
-                <label className="tw-block tw-text-[#607B96] tw-mb-1">_github_link</label>
+                <label className="tw-block tw-text-[#607B96] tw-mb-1 font-semibold">_github_link</label>
                 <input
                   type="text"
                   name="gitLink"
@@ -615,7 +649,7 @@ export default function AdminPage() {
               </div>
 
               <div>
-                <label className="tw-block tw-text-[#607B96] tw-mb-1">_live_demo_link</label>
+                <label className="tw-block tw-text-[#607B96] tw-mb-1 font-semibold">_live_demo_link</label>
                 <input
                   type="text"
                   name="hostedLink"
@@ -627,7 +661,7 @@ export default function AdminPage() {
               </div>
 
               <div>
-                <label className="tw-block tw-text-[#607B96] tw-mb-1">_display_order</label>
+                <label className="tw-block tw-text-[#607B96] tw-mb-1 font-semibold">_display_order</label>
                 <input
                   type="number"
                   name="order"
@@ -635,16 +669,16 @@ export default function AdminPage() {
                   onChange={handleFormChange}
                   className="ai-chat-input tw-w-full"
                 />
-                <p className="tw-text-[11px] tw-text-[#43D9AD] tw-mt-1.5 tw-flex tw-items-center tw-gap-1">
-                  <i className="ri-information-line"></i>
-                  <span>Setting an order (e.g. 4) will automatically rearrange the previous #4 and all following projects by adding 1 (+1).</span>
+                <p className="tw-text-[11px] tw-text-[#43D9AD] tw-mt-1.5 tw-flex tw-items-start tw-gap-1.5 tw-leading-relaxed">
+                  <i className="ri-information-line tw-mt-0.5 tw-flex-shrink-0"></i>
+                  <span>Setting an order (e.g. 4) will automatically shift existing items down (+1).</span>
                 </p>
               </div>
 
               <button
                 type="submit"
                 disabled={loading || isUploading}
-                className="tw-w-full tw-bg-[#1C2B3A] tw-border tw-border-[#1E2D3D] hover:tw-border-[#43D9AD] hover:tw-text-[#43D9AD] tw-text-white tw-py-2.5 tw-rounded tw-text-xs tw-transition"
+                className="tw-w-full tw-bg-[#1C2B3A] tw-border tw-border-[#1E2D3D] hover:tw-border-[#43D9AD] hover:tw-text-[#43D9AD] tw-text-white tw-py-3 sm:tw-py-2.5 tw-rounded-md tw-text-xs sm:tw-text-sm tw-font-semibold tw-transition disabled:tw-opacity-50"
               >
                 {loading ? 'saving...' : isEditing ? 'update_project()' : 'create_project()'}
               </button>
@@ -653,28 +687,29 @@ export default function AdminPage() {
         </div>
 
         {/* Existing Projects List */}
-        <div className="lg:tw-col-span-7">
-          <div className="tw-bg-[#011627] tw-border tw-border-[#1E2D3D] tw-rounded-lg tw-p-6 tw-shadow-xl">
-            <div className="tw-flex tw-items-center tw-justify-between tw-mb-4">
-              <h2 className="tw-text-white tw-text-lg tw-font-semibold">
+        <div className={`lg:tw-col-span-7 ${mobileTab === 'list' ? 'tw-block' : 'tw-hidden lg:tw-block'}`}>
+          <div className="tw-bg-[#011627] tw-border tw-border-[#1E2D3D] tw-rounded-lg tw-p-4 sm:tw-p-6 tw-shadow-xl">
+            <div className="tw-flex tw-items-center tw-justify-between tw-mb-4 tw-gap-2">
+              <h2 className="tw-text-white tw-text-base sm:tw-text-lg tw-font-semibold">
                 // active-projects ({projects.length})
               </h2>
-              <div className="tw-flex tw-gap-2">
+              <div className="tw-flex tw-items-center tw-gap-2">
                 <button
                   type="button"
                   onClick={handleSeed}
                   disabled={loading}
                   title="Migrate hardcoded projects into Firestore"
-                  className="tw-bg-[#011221] tw-border tw-border-[#1E2D3D] hover:tw-border-[#FEA55F] tw-text-[#FEA55F] tw-px-2.5 tw-py-1 tw-rounded tw-text-xs"
+                  className="tw-bg-[#011221] tw-border tw-border-[#1E2D3D] hover:tw-border-[#FEA55F] tw-text-[#FEA55F] tw-px-2.5 tw-py-1.5 sm:tw-py-1 tw-rounded tw-text-xs tw-transition"
                 >
-                  seed_firestore()
+                  <span className="tw-hidden sm:tw-inline">seed_firestore()</span>
+                  <span className="sm:tw-hidden">seed</span>
                 </button>
                 <button
                   type="button"
                   onClick={loadProjects}
                   disabled={loading}
                   title="Refresh list"
-                  className="tw-bg-[#011221] tw-border tw-border-[#1E2D3D] hover:tw-border-[#43D9AD] tw-text-[#607B96] hover:tw-text-[#43D9AD] tw-px-2.5 tw-py-1 tw-rounded tw-text-xs"
+                  className="tw-bg-[#011221] tw-border tw-border-[#1E2D3D] hover:tw-border-[#43D9AD] tw-text-[#607B96] hover:tw-text-[#43D9AD] tw-px-2.5 tw-py-1.5 sm:tw-py-1 tw-rounded tw-text-xs tw-transition"
                 >
                   <i className="ri-refresh-line"></i>
                 </button>
@@ -689,75 +724,80 @@ export default function AdminPage() {
               {projects.map((proj) => (
                 <div
                   key={proj.id || proj.title}
-                  className="tw-bg-[#011221] tw-border tw-border-[#1E2D3D] tw-rounded tw-p-3.5 tw-flex tw-items-start tw-justify-between tw-gap-3"
+                  className="tw-bg-[#011221] tw-border tw-border-[#1E2D3D] tw-rounded-lg tw-p-3 sm:tw-p-4 tw-flex tw-flex-col sm:tw-flex-row sm:tw-items-start tw-justify-between tw-gap-3.5 tw-transition hover:tw-border-[#607B96]/40"
                 >
-                  {/* Thumbnail */}
-                  {proj.img && (
-                    <img
-                      src={typeof proj.img === 'object' && proj.img?.src ? proj.img.src : String(proj.img)}
-                      alt={proj.title}
-                      className="tw-w-14 tw-h-12 tw-object-cover tw-rounded tw-border tw-border-[#1E2D3D] tw-flex-shrink-0"
-                    />
-                  )}
+                  <div className="tw-flex tw-items-start tw-gap-3 tw-flex-1 tw-min-w-0">
+                    {/* Thumbnail */}
+                    {proj.img && (
+                      <img
+                        src={typeof proj.img === 'object' && proj.img?.src ? proj.img.src : String(proj.img)}
+                        alt={proj.title}
+                        className="tw-w-16 tw-h-14 sm:tw-w-14 sm:tw-h-12 tw-object-cover tw-rounded-md tw-border tw-border-[#1E2D3D] tw-flex-shrink-0"
+                      />
+                    )}
 
-                  <div className="tw-space-y-1 tw-flex-1">
-                    <div className="tw-flex tw-items-center tw-gap-2">
-                      <span className="tw-text-[#43D9AD] tw-font-bold tw-text-xs">
-                        #{proj.order || '-'}
-                      </span>
-                      <h3 className="tw-text-white tw-font-semibold tw-text-sm">
-                        {proj.title}
-                      </h3>
-                      <span className="tw-bg-[#1E2D3D] tw-text-[#607B96] tw-text-[10px] tw-px-2 tw-py-0.5 tw-rounded">
-                        {proj.type}
-                      </span>
-                      <span className="tw-bg-[#1E2D3D] tw-text-[#FEA55F] tw-text-[10px] tw-px-2 tw-py-0.5 tw-rounded">
-                        {proj.tech}
-                      </span>
-                    </div>
-                    <p className="tw-text-[#607B96] tw-text-xs tw-line-clamp-2">
-                      {proj.description}
-                    </p>
-                    <div className="tw-flex tw-gap-3 tw-text-[11px] tw-text-[#607B96] tw-pt-1">
-                      {proj.gitLink && (
-                        <a
-                          href={proj.gitLink}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="hover:tw-text-[#43D9AD]"
-                        >
-                          <i className="ri-github-fill"></i> repo
-                        </a>
-                      )}
-                      {proj.hostedLink && (
-                        <a
-                          href={proj.hostedLink}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="hover:tw-text-[#43D9AD]"
-                        >
-                          <i className="ri-cast-line"></i> live
-                        </a>
-                      )}
+                    <div className="tw-space-y-1.5 tw-flex-1 tw-min-w-0">
+                      <div className="tw-flex tw-flex-wrap tw-items-center tw-gap-1.5 sm:tw-gap-2">
+                        <span className="tw-text-[#43D9AD] tw-font-bold tw-text-xs">
+                          #{proj.order || '-'}
+                        </span>
+                        <h3 className="tw-text-white tw-font-semibold tw-text-sm tw-break-words">
+                          {proj.title}
+                        </h3>
+                        <span className="tw-bg-[#1E2D3D] tw-text-[#607B96] tw-text-[10px] tw-px-2 tw-py-0.5 tw-rounded">
+                          {proj.type}
+                        </span>
+                        <span className="tw-bg-[#1E2D3D] tw-text-[#FEA55F] tw-text-[10px] tw-px-2 tw-py-0.5 tw-rounded">
+                          {proj.tech}
+                        </span>
+                      </div>
+                      <p className="tw-text-[#607B96] tw-text-xs tw-line-clamp-2 tw-break-words">
+                        {proj.description}
+                      </p>
+                      <div className="tw-flex tw-flex-wrap tw-gap-3 tw-text-[11px] tw-text-[#607B96] tw-pt-1">
+                        {proj.gitLink && (
+                          <a
+                            href={proj.gitLink}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="hover:tw-text-[#43D9AD] tw-flex tw-items-center tw-gap-1 tw-py-0.5"
+                          >
+                            <i className="ri-github-fill"></i> repo
+                          </a>
+                        )}
+                        {proj.hostedLink && (
+                          <a
+                            href={proj.hostedLink}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="hover:tw-text-[#43D9AD] tw-flex tw-items-center tw-gap-1 tw-py-0.5"
+                          >
+                            <i className="ri-cast-line"></i> live
+                          </a>
+                        )}
+                      </div>
                     </div>
                   </div>
 
-                  <div className="tw-flex tw-items-center tw-gap-1.5 tw-flex-shrink-0">
+                  {/* Actions (Touch-friendly on mobile) */}
+                  <div className="tw-flex sm:tw-flex-col tw-items-center tw-justify-end tw-gap-2 tw-pt-2.5 sm:tw-pt-0 tw-border-t sm:tw-border-t-0 tw-border-[#1E2D3D]/60 sm:tw-flex-shrink-0">
                     <button
                       type="button"
                       onClick={() => handleEdit(proj)}
-                      className="tw-p-1.5 tw-text-[#607B96] hover:tw-text-white hover:tw-bg-[#1E2D3D] tw-rounded tw-transition"
+                      className="tw-flex-1 sm:tw-flex-initial tw-flex tw-items-center tw-justify-center tw-gap-1.5 tw-px-3 tw-py-2 sm:tw-p-2 tw-text-xs tw-text-[#607B96] hover:tw-text-white tw-bg-[#011627] sm:tw-bg-transparent hover:tw-bg-[#1E2D3D] tw-border sm:tw-border-0 tw-border-[#1E2D3D] tw-rounded-md tw-transition"
                       title="Edit"
                     >
-                      <i className="ri-edit-line tw-text-sm"></i>
+                      <i className="ri-edit-line tw-text-sm tw-text-[#43D9AD]"></i>
+                      <span className="sm:tw-hidden">Edit</span>
                     </button>
                     <button
                       type="button"
                       onClick={() => handleDelete(proj.id, proj.title)}
-                      className="tw-p-1.5 tw-text-[#607B96] hover:tw-text-[#E99287] hover:tw-bg-[#1E2D3D] tw-rounded tw-transition"
+                      className="tw-flex-1 sm:tw-flex-initial tw-flex tw-items-center tw-justify-center tw-gap-1.5 tw-px-3 tw-py-2 sm:tw-p-2 tw-text-xs tw-text-[#607B96] hover:tw-text-[#E99287] tw-bg-[#011627] sm:tw-bg-transparent hover:tw-bg-[#1E2D3D] tw-border sm:tw-border-0 tw-border-[#1E2D3D] tw-rounded-md tw-transition"
                       title="Delete"
                     >
-                      <i className="ri-delete-bin-line tw-text-sm"></i>
+                      <i className="ri-delete-bin-line tw-text-sm tw-text-[#E99287]"></i>
+                      <span className="sm:tw-hidden">Delete</span>
                     </button>
                   </div>
                 </div>

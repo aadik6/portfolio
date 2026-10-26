@@ -31,13 +31,15 @@ export const metadata = {
       'Explore the portfolio, projects, and skills of Aadarsh Kushwaha, a FullStack Developer from Nepal specializing in React, Next.js, Node.js, and NestJS.',
     url: 'https://aadarshkushwaha.com.np/',
     siteName: 'Aadarsh Kushwaha Portfolio',
-    type: 'profile',
+    type: 'website',
     locale: 'en_US',
     images: [
       {
-        url: '/image.jpeg',
+        url: '/meta-preview.jpg',
+        secureUrl: 'https://aadarshkushwaha.com.np/meta-preview.jpg',
         width: 1200,
         height: 630,
+        type: 'image/jpeg',
         alt: 'Aadarsh Kushwaha - FullStack & MERN Developer',
       },
     ],
@@ -47,7 +49,7 @@ export const metadata = {
     title: 'Aadarsh Kushwaha | FullStack & MERN Developer',
     description:
       'FullStack & Node.js Developer from Nepal with 3+ years of experience in React, Next.js, NestJS, and PostgreSQL.',
-    images: ['/image.jpeg'],
+    images: ['/meta-preview.jpg'],
   },
 };
 

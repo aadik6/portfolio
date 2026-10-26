@@ -22,12 +22,14 @@ export const metadata = {
     description:
       'Learn about Aadarsh Kushwaha — FullStack Developer with 3+ years of experience in React, TypeScript, NestJS, and PostgreSQL. View background, skills, and download resume.',
     url: 'https://aadarshkushwaha.com.np/about',
-    type: 'profile',
+    type: 'website',
     images: [
       {
-        url: '/image.jpeg',
+        url: '/meta-preview.jpg',
+        secureUrl: 'https://aadarshkushwaha.com.np/meta-preview.jpg',
         width: 1200,
         height: 630,
+        type: 'image/jpeg',
         alt: 'About Aadarsh Kushwaha - FullStack Developer',
       },
     ],
@@ -37,7 +39,7 @@ export const metadata = {
     title: 'About Aadarsh Kushwaha | FullStack Developer',
     description:
       'Background, experience, and full-stack technical skills of Aadarsh Kushwaha.',
-    images: ['/image.jpeg'],
+    images: ['/meta-preview.jpg'],
   },
 };
 

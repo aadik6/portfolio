@@ -13,6 +13,7 @@ export const metadata = {
     'React FullStack Projects',
     'Node.js Web Applications',
     'Web Development Portfolio Nepal',
+    'Tirhut SchoolOS'
   ],
   alternates: {
     canonical: 'https://aadarshkushwaha.com.np/projects',
@@ -25,9 +26,11 @@ export const metadata = {
     type: 'website',
     images: [
       {
-        url: '/image.jpeg',
+        url: '/meta-preview.jpg',
+        secureUrl: 'https://aadarshkushwaha.com.np/meta-preview.jpg',
         width: 1200,
         height: 630,
+        type: 'image/jpeg',
         alt: 'Aadarsh Kushwaha Projects Portfolio',
       },
     ],
@@ -37,7 +40,7 @@ export const metadata = {
     title: 'Projects | Aadarsh Kushwaha',
     description:
       'Discover dynamic web applications and portals developed by Aadarsh Kushwaha.',
-    images: ['/image.jpeg'],
+    images: ['/meta-preview.jpg'],
   },
 };
 

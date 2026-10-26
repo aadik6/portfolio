@@ -24,9 +24,11 @@ export const metadata = {
     type: 'website',
     images: [
       {
-        url: '/image.jpeg',
+        url: '/meta-preview.jpg',
+        secureUrl: 'https://aadarshkushwaha.com.np/meta-preview.jpg',
         width: 1200,
         height: 630,
+        type: 'image/jpeg',
         alt: 'Contact Aadarsh Kushwaha',
       },
     ],
@@ -36,7 +38,7 @@ export const metadata = {
     title: 'Contact Aadarsh Kushwaha | FullStack Developer',
     description:
       'Connect with Aadarsh Kushwaha for software engineering and web development opportunities.',
-    images: ['/image.jpeg'],
+    images: ['/meta-preview.jpg'],
   },
 };
 
