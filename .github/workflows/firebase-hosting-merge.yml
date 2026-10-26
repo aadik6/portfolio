@@ -11,15 +11,15 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 20 # Change to your Node.js version
+          node-version: 20
 
       - name: Install Dependencies
-        run: npm install # Use yarn or pnpm if needed
+        run: npm install
 
       - name: Build Project
         run: npm run build
@@ -28,6 +28,6 @@ jobs:
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
-          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
-          channelId: live # Deploys to production
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_AADARSH_KUSHWAHA_PORTFOLIO || secrets.FIREBASE_SERVICE_ACCOUNT }}"
+          channelId: live
           projectId: aadarsh-kushwaha-portfolio

@@ -297,7 +297,7 @@ export default function AdminPage() {
           </form>
 
           <div className="tw-mt-6 tw-pt-4 tw-border-t tw-border-[#1E2D3D] tw-flex tw-justify-between tw-text-[11px] tw-text-[#607B96]">
-            <span>Passkey defaults to: aadi2026</span>
+        
             <Link href="/" className="hover:tw-text-[#43D9AD]">
               &larr; return home
             </Link>
