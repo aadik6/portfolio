@@ -67,11 +67,11 @@ function Contact() {
                     <div className="tw-flex">
                         <div className="top-contact tw-flex">
                             <div className="side">
-                                <p className='tw-text-white tw-ml-[20px] tw-w-[268.5px]'><i class="ri-arrow-down-s-fill tw-text-white"></i>contacts</p>
+                                <p className='tw-text-white tw-ml-[20px] tw-w-[268.5px]'><i className="ri-arrow-down-s-fill tw-text-white"></i>contacts</p>
                                 <hr className='contact-hr' />
                                 <div className="contact-email tw-mt-4 tw-ml-1">
-                                    <p className='tw-flex tw-gap-[3px] tw-text-[#64748b]'><i class="ri-mail-fill tw-text-[#64748b]"></i>aadarshkumarman@gmail.com</p>
-                                    <p className='tw-flex tw-gap-[3px] tw-text-[#64748b]'><i class="ri-phone-fill tw-text-[#64748b]"></i>9806814329</p>
+                                    <p className='tw-flex tw-gap-[3px] tw-text-[#64748b]'><i className="ri-mail-fill tw-text-[#64748b]"></i>aadarshkumarman@gmail.com</p>
+                                    <p className='tw-flex tw-gap-[3px] tw-text-[#64748b]'><i className="ri-phone-fill tw-text-[#64748b]"></i>9806814329</p>
                                 </div>
                             </div>
                             <div className="separator2"></div>
@@ -142,8 +142,8 @@ function Contact() {
                             <span className='tw-text-white tw-bg-[#1E2D3D] tw-w-[100vw] tw-block' onClick={() => { setMobileContactOpen(!mobileContactOpen) }}><i className={`ri-arrow-${mobileContactOpen ? "down" : "right"}-s-fill tw-text-white tw-bg-[#1E2D3D] tw-ml-5`}></i>contacts</span>
                             {mobileContactOpen &&
                                 <div className='tw-mt-2 tw-ml-5'>
-                                    <p className='tw-flex tw-gap-[3px] tw-text-[#64748b]'><i class="ri-mail-fill tw-text-[#64748b]"></i>aadarshkumarman@gmail.com</p>
-                                    <p className='tw-flex tw-gap-[3px] tw-text-[#64748b]'><i class="ri-phone-fill tw-text-[#64748b]"></i>9806814329</p>
+                                    <p className='tw-flex tw-gap-[3px] tw-text-[#64748b]'><i className="ri-mail-fill tw-text-[#64748b]"></i>aadarshkumarman@gmail.com</p>
+                                    <p className='tw-flex tw-gap-[3px] tw-text-[#64748b]'><i className="ri-phone-fill tw-text-[#64748b]"></i>9806814329</p>
                                 </div>}
 
                         </div>

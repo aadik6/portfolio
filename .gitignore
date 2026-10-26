@@ -13,7 +13,7 @@ dist-ssr
 .next
 out
 *.local
-# .firebase
+.firebase
 # firebase.json
 # .firebaserc
 

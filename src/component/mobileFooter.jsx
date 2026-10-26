@@ -12,13 +12,13 @@ function MobileFooter() {
                     </div>
                     <div className="right tw-flex">
                         <li className='tw-mx-8 separator1'></li>
-                        <li><a href='https://www.facebook.com/aadarshaadman6264'><i class="ri-facebook-circle-line footer-icon"></i></a></li>
+                        <li><a href='https://www.facebook.com/aadarshaadman6264' target="_blank" rel="noopener noreferrer"><i className="ri-facebook-circle-line footer-icon"></i></a></li>
                         <li className='tw-mx-8 separator1'></li>
-                        <li><a href='https://www.instagram.com/iamyouraadi/'><i class="ri-instagram-line footer-icon"></i></a></li>
+                        <li><a href='https://www.instagram.com/iamyouraadi/' target="_blank" rel="noopener noreferrer"><i className="ri-instagram-line footer-icon"></i></a></li>
                         <li className='tw-mx-8 separator1'></li>
-                        <li><a href=''><i class="ri-linkedin-box-line footer-icon"></i></a></li>
+                        <li><a href='https://www.linkedin.com/in/aadarsh-kushwaha-09a9451b4/' target="_blank" rel="noopener noreferrer"><i className="ri-linkedin-box-line footer-icon"></i></a></li>
                         <li className='tw-mx-8 separator1'></li>
-                        <li><a href='https://github.com/aadik6'><i class="ri-github-fill footer-icon"></i></a></li>
+                        <li><a href='https://github.com/aadik6' target="_blank" rel="noopener noreferrer"><i className="ri-github-fill footer-icon"></i></a></li>
                     </div>
                 </ul>
                 <hr className='def-hr' />

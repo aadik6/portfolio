@@ -1,5 +1,12 @@
 import '../index.css';
 import '../App.css';
+import 'remixicon/fonts/remixicon.css';
+import '../component/header.css';
+import '../component/footer.css';
+import '../sections/about.css';
+import '../sections/project.css';
+import '../sections/contact.css';
+import '../sections/home.css';
 import Header from '../component/header';
 import Footer from '../component/footer';
 import MessageIcon from '../component/messageIcon';
