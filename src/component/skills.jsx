@@ -182,7 +182,6 @@ const Skills = () => {
       <div className="mobile-text">
         <div className="skills-container">
           <div className="skills-section">
-
             {skillCategories.map((category, index) => (
               <div className="skill-category" key={index}>
                 <h3 className="category-title">

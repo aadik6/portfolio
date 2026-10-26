@@ -1,0 +1,21 @@
+{
+  "name": "Aadarsh Kushwaha | FullStack Developer",
+  "short_name": "Aadarsh Kushwaha",
+  "description": "Portfolio of Aadarsh Kushwaha, FullStack and MERN developer from Nepal.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#011627",
+  "theme_color": "#011627",
+  "icons": [
+    {
+      "src": "/yellow.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/fv.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

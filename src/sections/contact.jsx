@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect } from 'react'
 import './contact.css'
 // import '../component/header.css'
@@ -18,12 +20,15 @@ const schema = z.object({
 });
 
 function Contact() {
-    const [isDesktopView, setIsDesktopView] = useState(window.innerWidth > 768);
+    const [isDesktopView, setIsDesktopView] = useState(true);
 
     useEffect(() => {
-        const handleResize = () => setIsDesktopView(window.innerWidth > 768);
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
+        if (typeof window !== "undefined") {
+            setIsDesktopView(window.innerWidth > 768);
+            const handleResize = () => setIsDesktopView(window.innerWidth > 768);
+            window.addEventListener('resize', handleResize);
+            return () => window.removeEventListener('resize', handleResize);
+        }
     }, []);
 
     const [mobileContactOpen, setMobileContactOpen] = useState(false);

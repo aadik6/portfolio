@@ -1,16 +1,29 @@
+'use client';
+
 import React, { useState } from "react";
 import "./header.css";
-import { Link, NavLink } from "react-router-dom";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import "remixicon/fonts/remixicon.css";
 import Footer from "./footer";
 import MobileFooter from "./mobileFooter";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  const isActive = (path) => {
+    if (path === "/") {
+      return pathname === "/";
+    }
+    return pathname?.startsWith(path);
+  };
 
   const toogleIcon = () => {
     setIsMenuOpen(!isMenuOpen);
-    document.body.style.overflow = isMenuOpen ? "auto" : "hidden";
+    if (typeof document !== "undefined") {
+      document.body.style.overflow = !isMenuOpen ? "hidden" : "auto";
+    }
   };
 
   return (
@@ -20,7 +33,7 @@ function Header() {
           <ul className="menu">
             <div className="logo">
               <li>
-                <Link to="/" className="tw-text-[#607B96]">
+                <Link href="/" className="tw-text-[#607B96]">
                   Aadarsh Kushwaha
                 </Link>
               </li>
@@ -28,15 +41,21 @@ function Header() {
             <div className="menu-right">
               <li className="tw-mx-8 separator"></li>
               <li>
-                <NavLink to="/">_hello</NavLink>
+                <Link href="/" className={isActive("/") ? "active" : ""}>
+                  _hello
+                </Link>
               </li>
               <li className="tw-mx-8 separator"></li>
               <li>
-                <NavLink to="about">_about-me</NavLink>
+                <Link href="/about" className={isActive("/about") ? "active" : ""}>
+                  _about-me
+                </Link>
               </li>
               <li className="tw-mx-8 separator"></li>
               <li>
-                <NavLink to="projects">_projects</NavLink>
+                <Link href="/projects" className={isActive("/projects") ? "active" : ""}>
+                  _projects
+                </Link>
               </li>
               <li className="tw-mx-8 separator"></li>
             </div>
@@ -45,7 +64,9 @@ function Header() {
             <div className="menu-left tw-flex">
               <li className="tw-mx-8 separator"></li>
               <li>
-                <NavLink to="/contact">_contact-me</NavLink>
+                <Link href="/contact" className={isActive("/contact") ? "active" : ""}>
+                  _contact-me
+                </Link>
               </li>
             </div>
           </ul>
@@ -58,11 +79,11 @@ function Header() {
             <li>Aadarsh Kushwaha</li>
             {isMenuOpen ? (
               <li className="icon" onClick={toogleIcon}>
-                <i class="ri-close-fill footer-icon mobile-nav-icon"></i>
+                <i className="ri-close-fill footer-icon mobile-nav-icon"></i>
               </li>
             ) : (
               <li className="icon" onClick={toogleIcon}>
-                <i class="ri-menu-line footer-icon mobile-nav-icon"></i>
+                <i className="ri-menu-line footer-icon mobile-nav-icon"></i>
               </li>
             )}
           </ul>
@@ -72,41 +93,31 @@ function Header() {
               <div className="mobile-nav-menu">
                 <ul className="tw-flex tw-flex-col tw-text-center">
                   <li onClick={toogleIcon}>
-                    <NavLink to="/">_hello</NavLink>
+                    <Link href="/" className={isActive("/") ? "active" : ""}>
+                      _hello
+                    </Link>
                   </li>
                   <hr className="def-hr" />
                   <li onClick={toogleIcon}>
-                    <NavLink to="/about">_about-me</NavLink>
+                    <Link href="/about" className={isActive("/about") ? "active" : ""}>
+                      _about-me
+                    </Link>
                   </li>
                   <hr className="def-hr" />
                   <li onClick={toogleIcon}>
-                    <NavLink to="/projects">_projects</NavLink>
+                    <Link href="/projects" className={isActive("/projects") ? "active" : ""}>
+                      _projects
+                    </Link>
                   </li>
                   <hr className="def-hr" />
                   <li onClick={toogleIcon}>
-                    <NavLink to="/contact">_contact</NavLink>
+                    <Link href="/contact" className={isActive("/contact") ? "active" : ""}>
+                      _contact
+                    </Link>
                   </li>
                   <hr className="def-hr" />
                 </ul>
               </div>
-              {/* <div className="mobile-footer">
-                                <hr className='def-hr' />
-                                <ul className='tw-flex tw-justify-between tw-mx-1'>
-                                    <div className="left">
-                                        <li>Find me in:</li>
-                                    </div>
-                                    <div className="right tw-flex">
-                                        <li className='tw-mx-8 separator1'></li>
-                                        <li><a href='https://www.facebook.com/aadarshaadman6264'><i class="ri-facebook-circle-line footer-icon"></i></a></li>
-                                        <li className='tw-mx-8 separator1'></li>
-                                        <li><a href='https://www.instagram.com/iamyouraadi/'><i class="ri-instagram-line footer-icon"></i></a></li>
-                                        <li className='tw-mx-8 separator1'></li>
-                                        <li><a href=''><i class="ri-linkedin-box-line footer-icon"></i></a></li>
-                                        <li className='tw-mx-8 separator1'></li>
-                                        <li><a href='https://github.com/aadik6'><i class="ri-github-fill footer-icon"></i></a></li>
-                                    </div>
-                                </ul>
-                            </div> */}
               <MobileFooter />
             </>
           )}

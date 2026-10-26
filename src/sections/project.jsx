@@ -1,39 +1,78 @@
+'use client';
+
 import React, { useEffect, useState } from "react";
 import Card from "../component/card";
-import { Projects } from "../data/projectData";
+import { Projects as initialProjects } from "../data/projectData";
+import { fetchProjects, getDefaultTechIcon } from "../lib/projectService";
 import "./project.css";
 import MobileFooter from "../component/mobileFooter";
 
 function Project() {
+  const [projectsList, setProjectsList] = useState(initialProjects);
   const [currentFile, setCurrentFile] = useState("personal");
   const [selectedTech, setSelectedTech] = useState([]);
   const [mobileProjectType, setMobileProjectType] = useState(false);
   const [mobileProjectTech, setMobileProjectTech] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  // Mapping technologies to their respective icons
+  // Fetch dynamic projects from Firestore with fallback to local projects
+  useEffect(() => {
+    let isMounted = true;
+    async function loadDynamicProjects() {
+      try {
+        setIsLoading(true);
+        const data = await fetchProjects();
+        if (isMounted && Array.isArray(data) && data.length > 0) {
+          setProjectsList(data);
+        }
+      } catch (err) {
+        console.warn("Using fallback local projects:", err);
+      } finally {
+        if (isMounted) setIsLoading(false);
+      }
+    }
+
+    loadDynamicProjects();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  // Base icon mapping for known technologies
   const techIcons = {
     react: "ri-reactjs-fill",
     html: "ri-html5-fill",
     css: "ri-css3-fill",
     php: "ri-php-fill",
+    nodejs: "ri-nodejs-fill",
+    nextjs: "ri-reactjs-fill",
+    typescript: "ri-code-s-slash-fill",
+    nestjs: "ri-server-fill",
+    mongodb: "ri-database-2-fill",
+    postgresql: "ri-database-fill",
   };
 
-  const filteredProjects = Projects.filter((project) => {
-    return (
-      project.type === currentFile &&
-      (selectedTech.length === 0 || selectedTech.includes(project.tech))
-    );
+  // Dynamically extract technologies present in current projects
+  const availableTechs = Array.from(
+    new Set(projectsList.map((p) => (p.tech || "").toLowerCase()).filter(Boolean))
+  );
+
+  // If none found, fallback to defaults
+  const displayTechs = availableTechs.length > 0 ? availableTechs : ["react", "html", "css", "php"];
+
+  const filteredProjects = projectsList.filter((project) => {
+    const matchesType = project.type === currentFile;
+    const projectTech = (project.tech || "").toLowerCase();
+    const matchesTech =
+      selectedTech.length === 0 || selectedTech.includes(projectTech);
+    return matchesType && matchesTech;
   });
 
-  // useEffect(()=>{
-  //   filteredProjects()
-  // },[])
-
   const handleTechSelection = (tech) => {
-    setSelectedTech((prevSelectedTech) =>
-      prevSelectedTech.includes(tech)
-        ? prevSelectedTech.filter((t) => t !== tech) // Remove tech if already selected
-        : [...prevSelectedTech, tech]
+    setSelectedTech((prev) =>
+      prev.includes(tech)
+        ? prev.filter((t) => t !== tech)
+        : [...prev, tech]
     );
   };
 
@@ -44,7 +83,8 @@ function Project() {
           <ul className="tw-flex tw-w-20">
             <div className="icons tw-ml-2">
               <li
-                className="tw-ml-2 tw-my-2"
+                className="tw-ml-2 tw-my-2 tw-cursor-pointer"
+                title="Personal Projects"
                 onClick={() => setCurrentFile("personal")}
               >
                 <i
@@ -54,7 +94,8 @@ function Project() {
                 ></i>
               </li>
               <li
-                className="tw-ml-2 tw-my-2"
+                className="tw-ml-2 tw-my-2 tw-cursor-pointer"
+                title="Professional Projects"
                 onClick={() => setCurrentFile("professional")}
               >
                 <i
@@ -73,7 +114,7 @@ function Project() {
             <hr className="about-hr"></hr>
             <div className="personal-projects tw-mt-5 tw-ml-1">
               <ul>
-                {Object.keys(techIcons).map((tech) => (
+                {displayTechs.map((tech) => (
                   <li key={tech} className="tw-flex tw-items-center">
                     <label className="tw-flex tw-items-center tw-cursor-pointer">
                       <input
@@ -87,7 +128,9 @@ function Project() {
                         }`}
                       >
                         <i
-                          className={`${techIcons[tech]} tw-text-${
+                          className={`${
+                            techIcons[tech] || getDefaultTechIcon(tech)
+                          } tw-text-${
                             selectedTech.includes(tech) ? "white" : "[#607B96]"
                           }`}
                         ></i>{" "}
@@ -103,16 +146,22 @@ function Project() {
         </div>
         <div className="projects tw-pt-8">
           <div className="tw-flex tw-flex-wrap">
-            {filteredProjects.map((project) => (
-              <Card
-                key={project.id}
-                img={project.img}
-                icon={project.icon}
-                para={project.description}
-                gitlink={project.gitLink}
-                hostedLink={project.hostedLink}
-              />
-            ))}
+            {filteredProjects.length === 0 ? (
+              <div className="tw-p-8 tw-text-[#607B96] tw-font-mono">
+                // No projects found matching selected filters.
+              </div>
+            ) : (
+              filteredProjects.map((project) => (
+                <Card
+                  key={project.id || project.title}
+                  img={project.img}
+                  icon={project.icon || getDefaultTechIcon(project.tech)}
+                  para={project.description}
+                  gitlink={project.gitLink}
+                  hostedLink={project.hostedLink}
+                />
+              ))
+            )}
           </div>
         </div>
       </div>
@@ -121,7 +170,7 @@ function Project() {
           <p className="tw-mt-3 tw-ml-5 tw-text-white">_projects</p>
           <div className="project-tech tw-mt-3">
             <span
-              className="tw-text-white tw-bg-[#1E2D3D]  tw-block"
+              className="tw-text-white tw-bg-[#1E2D3D] tw-block tw-cursor-pointer"
               onClick={() => {
                 setMobileProjectTech(!mobileProjectTech);
               }}
@@ -131,12 +180,12 @@ function Project() {
                   mobileProjectTech ? "down" : "right"
                 }-s-fill tw-text-white tw-bg-[#1E2D3D] tw-ml-5`}
               ></i>
-              projects
+              tech-filter
             </span>
             {mobileProjectTech && (
-              <ul className="tw-ml-5">
-                {Object.keys(techIcons).map((tech) => (
-                  <li key={tech} className="tw-flex tw-items-center">
+              <ul className="tw-ml-5 tw-mt-2">
+                {displayTechs.map((tech) => (
+                  <li key={tech} className="tw-flex tw-items-center tw-my-1">
                     <label className="tw-flex tw-items-center tw-cursor-pointer">
                       <input
                         type="checkbox"
@@ -149,7 +198,9 @@ function Project() {
                         }`}
                       >
                         <i
-                          className={`${techIcons[tech]} tw-text-${
+                          className={`${
+                            techIcons[tech] || getDefaultTechIcon(tech)
+                          } tw-text-${
                             selectedTech.includes(tech) ? "white" : "[#607B96]"
                           }`}
                         ></i>{" "}
@@ -163,7 +214,7 @@ function Project() {
           </div>
           <div className="project-type tw-mt-1">
             <span
-              className="tw-text-white tw-bg-[#1E2D3D]  tw-block"
+              className="tw-text-white tw-bg-[#1E2D3D] tw-block tw-cursor-pointer"
               onClick={() => {
                 setMobileProjectType(!mobileProjectType);
               }}
@@ -173,12 +224,12 @@ function Project() {
                   mobileProjectType ? "down" : "right"
                 }-s-fill tw-text-white tw-bg-[#1E2D3D] tw-ml-5`}
               ></i>
-              project-type
+              category ({currentFile})
             </span>
             {mobileProjectType && (
-              <ul className="tw-flex tw-ml-5">
+              <ul className="tw-flex tw-ml-5 tw-my-2">
                 <li
-                  className={`tw-ml-2 tw-my-2 tw-text-${
+                  className={`tw-ml-2 tw-my-2 tw-cursor-pointer tw-text-${
                     currentFile === "personal" ? "white" : "[#607B96]"
                   }`}
                   onClick={() => setCurrentFile("personal")}
@@ -187,11 +238,11 @@ function Project() {
                     className={`ri-user-3-line tw-text-${
                       currentFile === "personal" ? "white" : "[#607B96]"
                     }`}
-                  ></i>
+                  ></i>{" "}
                   personal
                 </li>
                 <li
-                  className={`tw-ml-2 tw-my-2 tw-text-${
+                  className={`tw-ml-4 tw-my-2 tw-cursor-pointer tw-text-${
                     currentFile === "professional" ? "white" : "[#607B96]"
                   }`}
                   onClick={() => setCurrentFile("professional")}
@@ -200,7 +251,7 @@ function Project() {
                     className={`ri-projector-fill tw-text-${
                       currentFile === "professional" ? "white" : "[#607B96]"
                     }`}
-                  ></i>
+                  ></i>{" "}
                   professional
                 </li>
               </ul>
@@ -209,16 +260,22 @@ function Project() {
         </div>
         <div className="mobile-projects tw-p-5">
           <div className="tw-flex tw-flex-wrap">
-            {filteredProjects.map((project) => (
-              <Card
-                key={project.id}
-                img={project.img}
-                icon={project.icon}
-                para={project.description}
-                gitlink={project.gitLink}
-                hostedLink={project.hostedLink}
-              />
-            ))}
+            {filteredProjects.length === 0 ? (
+              <div className="tw-p-4 tw-text-[#607B96] tw-font-mono">
+                // No projects found matching selected filters.
+              </div>
+            ) : (
+              filteredProjects.map((project) => (
+                <Card
+                  key={project.id || project.title}
+                  img={project.img}
+                  icon={project.icon || getDefaultTechIcon(project.tech)}
+                  para={project.description}
+                  gitlink={project.gitLink}
+                  hostedLink={project.hostedLink}
+                />
+              ))
+            )}
           </div>
         </div>
         <MobileFooter />

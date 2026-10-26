@@ -1,6 +1,6 @@
 import React from "react";
 import "./bio.css";
-import cv from "../assets/Aadarsh-cv.pdf";
+const cv = "/Aadarsh-cv.pdf";
 
 const Bio = () => {
   return (
@@ -20,26 +20,23 @@ const Bio = () => {
                     Aadarsh Kushwaha
                   </h3>
                   <span className="role tw-text-[#607B96]">
-                    Frontend Developer
+                    FullStack Developer
                   </span>
                 </div>
 
                 <div className="bio-content">
-                  <p className="tw-text-[#607B96] tw-mb-4">
-                    I am a frontend developer with 2+ years of experience
-                    working on React-based dynamic projects. I started my career
-                    creating static websites, eventually transitioning to modern
-                    web applications with advanced frameworks.
+                  <p className="tw-text-[#607B96] tw-mb-4" style={{ textAlign: "justify" }} >
+                    I am a fullstack developer and Node.js developer with 3+ years of
+                    experience working on MERN-based dynamic projects. I started
+                    my career creating static websites, eventually transitioning
+                    to modern web applications with advanced frameworks.
                   </p>
 
-                  <p className="tw-text-[#607B96] tw-mb-4">
-                    I am passionate about building scalable, responsive, and
-                    user-friendly interfaces. With skills in React, JavaScript,
-                    and Mongoose, I continuously strive to improve and stay
-                    updated with the latest technologies.
+                  <p className="tw-text-[#607B96] tw-mb-4" style={{ textAlign: "justify" }}>
+                    I am passionate about building scalable, responsive, and user-friendly interfaces. With skills in modern technologies including React, JavaScript, TypeScript, Nodejs, Express, MongoDB, Nestjs, PostgreSQL and more, I continuously strive to improve and stay updated with the latest technologies.
                   </p>
 
-                  <p className="tw-text-[#607B96] tw-mb-4">
+                  <p className="tw-text-[#607B96] tw-mb-4" style={{ textAlign: "justify" }}>
                     Currently, I am applying for full-time positions and
                     exploring opportunities to further my career in web
                     development.
@@ -106,7 +103,7 @@ const Bio = () => {
                 <div>
                   <span className="line-number">4</span>{" "}
                   <span className="property">title</span>:{" "}
-                  <span className="string">'Frontend Developer'</span>,
+                  <span className="string">'FullStack Developer'</span>,
                 </div>
                 <div>
                   <span className="line-number">5</span>{" "}
@@ -122,34 +119,46 @@ const Bio = () => {
                 </div>
                 <div>
                   <span className="line-number">8</span>{" "}
-                  <span className="string">'HTML'</span>,
+                  <span className="string">'TypeScript'</span>,
                 </div>
                 <div>
                   <span className="line-number">9</span>{" "}
-                  <span className="string">'CSS/Tailwind'</span>,
+                  <span className="string">'Nodejs'</span>,
                 </div>
                 <div>
                   <span className="line-number">10</span>{" "}
-                  <span className="string">'Responsive Design'</span>
+                  <span className="string">'Nestjs'</span>,
                 </div>
                 <div>
-                  <span className="line-number">11</span> ],
+                  <span className="line-number">11</span>{" "}
+                  <span className="string">'PostgreSQL'</span>,
                 </div>
                 <div>
                   <span className="line-number">12</span>{" "}
+                  <span className="string">'Tailwind'</span>,
+                </div>
+                <div>
+                  <span className="line-number">13</span>{" "}
+                  <span className="string">'Responsive Design'</span>
+                </div>
+                <div>
+                  <span className="line-number">14</span> ],
+                </div>
+                <div>
+                  <span className="line-number">15</span>{" "}
                   <span className="property">getResume</span>:{" "}
                   <span className="keyword">{"() =>"}</span> {"{"}{" "}
                 </div>
                 <div>
-                  <span className="line-number">13</span>{" "}
+                  <span className="line-number">16</span>{" "}
                   <span className="keyword">return</span>{" "}
                   <span className="string">'download_cv.pdf'</span>;
                 </div>
                 <div>
-                  <span className="line-number">14</span> {"}"}
+                  <span className="line-number">17</span> {"}"}
                 </div>
                 <div>
-                  <span className="line-number">15</span>
+                  <span className="line-number">18</span>
                   {"}"}
                 </div>
               </code>
@@ -158,13 +167,13 @@ const Bio = () => {
         </div>
       </div>
       <div className="mobile-text">
-        <span className="tw-text-[#607B96]">
-          I am a frontend developer with 2+ years of experience working on
-          React-based dynamic projects. I started my career creating static
+        <span className="tw-text-[#607B96]" style={{ textAlign: "justify" }}>
+          I am a fullstack developer with 3+ years of experience working on
+          MERN-based dynamic projects. I started my career creating static
           websites, eventually transitioning to modern web applications with
           advanced frameworks. I am passionate about building scalable,
           responsive, and user-friendly interfaces. With skills in React,
-          JavaScript, and Mongoose, I continuously strive to improve and stay
+          JavaScript, TypeScript, Nodejs, Express, MongoDB, Nestjs, PostgreSQL and more, I continuously strive to improve and stay
           updated with the latest technologies. Currently, I am applying for
           full-time positions and exploring opportunities to further my career
           in web and mobile development.

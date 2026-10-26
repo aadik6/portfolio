@@ -137,9 +137,7 @@ const Experience = () => {
                 <h3 className="company tw-text-white">{exp.company}</h3>
                 <span className="role tw-text-[#43D9AD]">{exp.role}</span>
               </div>
-              <p className="description tw-text-[#607B96]">
-                {exp.description}
-              </p>
+              <p className="description tw-text-[#607B96]">{exp.description}</p>
               <div className="skills">
                 {exp.skills.map((skill) => (
                   <span key={skill} className="skill-tag">
